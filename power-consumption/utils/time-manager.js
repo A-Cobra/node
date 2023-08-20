@@ -3,7 +3,7 @@ export class TimeManager {
   #task;
 
   constructor(task = null) {
-    reset();
+    this.reset();
     this.#task = task;
   }
 
@@ -16,6 +16,10 @@ export class TimeManager {
   }
 
   getCurrentTimeMessage() {
-    return `${this.#task} took ${this.getCurrentTime}ms`;
+    return `${this.#task} took ${this.getCurrentTime()}ms`;
+  }
+
+  setTask(task) {
+    this.#task = task;
   }
 }
