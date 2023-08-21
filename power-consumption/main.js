@@ -3,6 +3,7 @@ import { getPowerConsumptionByCompressionApproach } from "./calculation-methods/
 
 function main() {
   getPowerConsumptionByTimeDrivenApproach();
+  console.log("\n\n");
   getPowerConsumptionByCompressionApproach();
 }
 
