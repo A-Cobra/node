@@ -35,9 +35,9 @@ export function getPowerConsumptionByTimeDrivenApproach() {
     `Ratio quick sort / bubble sort: ${timeTakenByQuickSort}/${timeTakenByBubbleSort}`
   );
   console.log(
-    `Power consumed by quick sort: Multiplier * ${timeTakenByQuickSort} / (1000 * 60 * 60) Kw`
+    `Power consumed by quick sort: Multiplier * ${timeTakenByQuickSort} / (1000 * 60 * 60 * 1000) KwH`
   );
   console.log(
-    `Power consumed by bubble sort: Multiplier * ${timeTakenByBubbleSort} / (1000 * 60 * 60) Kw`
+    `Power consumed by bubble sort: Multiplier * ${timeTakenByBubbleSort} / (1000 * 60 * 60 * 1000) KwH`
   );
 }

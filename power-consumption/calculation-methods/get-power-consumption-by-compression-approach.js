@@ -59,10 +59,10 @@ export async function getPowerConsumptionByCompressionApproach() {
       `Ratio compressed image / full sized image: ${timeTakenByProcessingCompressedImage}/${timeTakenByProcessingFullImage}`
     );
     console.log(
-      `Power consumed by Processing compressed image: Multiplier * ${timeTakenByProcessingCompressedImage} / (1000 * 60 * 60) Kw`
+      `Power consumed by Processing compressed image: Multiplier * ${timeTakenByProcessingCompressedImage} / (1000 * 60 * 60 * 1000) KwH`
     );
     console.log(
-      `Power consumed by Processing full size image: Multiplier * ${timeTakenByProcessingFullImage} / (1000 * 60 * 60) Kw`
+      `Power consumed by Processing full size image: Multiplier * ${timeTakenByProcessingFullImage} / (1000 * 60 * 60 * 1000) KwH`
     );
   }
 }
