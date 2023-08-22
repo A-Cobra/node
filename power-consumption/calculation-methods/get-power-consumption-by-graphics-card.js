@@ -1,12 +1,13 @@
-import si from "systeminformation";
 import { getEnergyConsumed } from "../utils/get-energy-consumed.js";
 import { readImageFile } from "../utils/read-image-file.js";
 import { TimeManager } from "../models/time-manager.js";
+import { getPowerDrawnByGPU } from "../utils/get-power-drawn-by-gpu.js";
 
 export async function getPowerConsumptionByGraphicsCard() {
+  // calculates gpu usage by getting the average gpu power over a time period
   const FULL_SIZE_IMG_PATH = "./resources/sunset.jpeg";
-  const COMPRESSED_IMG_PATH = "./resources/sunset_thumbnail.jpeg";
-  const GPU_UTILIZATION_CHECK_RATE = 5000;
+  const GPU_UTILIZATION_CHECK_RATE = 5000; // helps to determine the quantity of time the gpu usage is checked,
+  // ideally, it would be a small number, however, that would make the program really sluggish and non responsive
   let gpuAveragePower = 0;
   let gpuCheckingTimes = 0;
 
@@ -37,19 +38,4 @@ export async function getPowerConsumptionByGraphicsCard() {
     const energy = getEnergyConsumed(elapsedTime, gpuAveragePower);
     console.log(`Graphical Processing Unit consumed ${energy}KwH`);
   }
-}
-
-async function getPowerDrawnByGPU() {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        const powerDrawn = await si
-          .graphics()
-          .then((data) => data.controllers[0].powerDraw);
-        resolve(powerDrawn);
-      } catch (error) {
-        reject(error);
-      }
-    })();
-  });
 }
