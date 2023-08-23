@@ -49,13 +49,17 @@ node main
 - calculation-methods: Contains the three main functions for power consumption calculations.
 - models: Contains the TimeManager model.
 - utils: Contains utility functions to aid the three methods from the calculation-methods folder.
-- resources: Contains additional resources such as images or other assets.
+- resources: Contains additional resources such as images.
 
 ## Dependencies
 
 This application relies on the following dependency:
 
 - [systeminformation](https://www.npmjs.com/package/systeminformation): Used to gather system information.
+
+## Additional Information
+
+It's important to note that the project does not include a method for directly measuring CPU consumption. This is because CPU consumption is influenced by various factors, such as the number of cores, utilization, and other variables. While tools like `Intel Power Gadget` can provide overall power measurements, they do not calculate energy consumption specifically for a particular process.
 
 ## License
 
