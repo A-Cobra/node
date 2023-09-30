@@ -7,7 +7,7 @@ This project demonstrates the calculation of Fibonacci numbers using TypeScript.
 - Node.js (v12 or higher)
 - TypeScript (v4 or higher) (Optional)
 
-## Installation
+## Usage
 
 1. Clone the repository:
 
@@ -51,7 +51,7 @@ npm run start
 
 The iterative approach for calculating Fibonacci numbers is generally more efficient than the recursive approach.
 
-You can compare the execution times between the two approaches by running the commands mentioned in the Usage section for different values of `n`.
+You can compare the execution times between the two approaches by running the commands mentioned in the Usage section for different values of the `iterations` variable in the `app.ts` file.
 
 ## Contributing
 
