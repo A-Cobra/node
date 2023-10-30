@@ -2,19 +2,17 @@ const express = require("express");
 const mysql = require("mysql");
 const config = require("./config/config.js");
 const productRouter = require("./routes/product.route.js");
+let dbConnection;
+
+try {
+  dbConnection = require("./database/get-database-connection.js").getInstance();
+} catch (error) {
+  console.log(error);
+  process.exit(0);
+}
+
 const app = express();
 app.use(express.json());
-
-const db = mysql.createConnection({
-  host: config.host,
-  user: config.user,
-  password: config.password,
-  database: config.database,
-});
-
-db.connect((err) => {
-  console.log(err ? "There was an error" : "Successfull database connection");
-});
 
 const routes = {
   products: "/api/products",
