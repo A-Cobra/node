@@ -1,16 +1,21 @@
 const config = require("../config/config.js");
 const badRequest = require("../helpers/bad-request");
+const internalServerError = require("../helpers/internal-server-error.js");
 const db = require("../database/get-database-connection.js").getInstance();
-
 const Router = require("express").Router;
 
 const router = Router();
+
 router.get("/", (req, res) => {
-  res.status(200).json({
-    products: [
-      { id: 1, name: "Aston Martin Valkyrie" },
-      { id: 2, name: "Ferrari 2004" },
-    ],
+  const sqlQuerie = `SELECT * FROM ${config.productTableName}`;
+  db.query(sqlQuerie, (err, result) => {
+    return err
+      ? internalServerError(err)
+      : res.status(201).json({
+          msg: "Products retrieved correctly",
+          success: true,
+          data: result,
+        });
   });
 });
 
