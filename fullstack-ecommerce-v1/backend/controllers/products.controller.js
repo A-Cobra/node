@@ -1,14 +1,9 @@
 const config = require("../config/config.js");
-const badRequest = require("../helpers/bad-request");
-const internalServerError = require("../helpers/internal-server-error.js");
 const db = require("../database/get-database-connection.js").getInstance();
-const Router = require("express").Router;
 
-const router = Router();
-
-router.get("/", (req, res) => {
-  const sqlQuerie = `SELECT * FROM ${config.productTableName}`;
-  db.query(sqlQuerie, (err, result) => {
+function getAllProducts(req, res) {
+  const sqlQuery = `SELECT * FROM ${config.productTableName}`;
+  db.query(sqlQuery, (err, result) => {
     return err
       ? internalServerError(err)
       : res.status(201).json({
@@ -17,19 +12,19 @@ router.get("/", (req, res) => {
           data: result,
         });
   });
-});
+}
 
-router.get("/:id", (req, res) => {
+function getProductById(req, res) {
   const id = req.params.id;
 
   if (!id) {
     return badRequest(req, res);
   }
 
-  const sqlQuerie = `SELECT * FROM ${config.productTableName} WHERE id=? LIMIT 1`;
-  // const sqlQuerie = `SELECT * FROM ${config.productTableName} WHERE id = ${id}`; //Unsafe
+  const sqlQuery = `SELECT * FROM ${config.productTableName} WHERE id=? LIMIT 1`;
+  // const sqlQuery = `SELECT * FROM ${config.productTableName} WHERE id = ${id}`; //Unsafe
 
-  db.query(sqlQuerie, id, (err, result) => {
+  db.query(sqlQuery, id, (err, result) => {
     if (err) {
       return internalServerError(req, res);
     }
@@ -50,9 +45,9 @@ router.get("/:id", (req, res) => {
       data: records[0],
     });
   });
-});
+}
 
-router.post("/", (req, res) => {
+function postProduct(req, res) {
   const { name, description, price } = req.body;
   if (!(name && description && price)) {
     return badRequest(
@@ -61,30 +56,29 @@ router.post("/", (req, res) => {
       "The name, description, and price are required"
     );
   }
-  const sqlQuerie = `INSERT INTO ${config.productTableName} SET ?`;
+  const sqlQuery = `INSERT INTO ${config.productTableName} SET ?`;
   const payload = { name, description, price };
-  db.query(sqlQuerie, payload, (err) => {
+  db.query(sqlQuery, payload, (err) => {
     return err
       ? res.status(500).json({ msg: "Product creation failed", success: false })
       : res.status(201).json({
-          msg: "Product added correctly",
+          msg: "Product created correctly",
           success: true,
         });
   });
-});
+}
 
-router.patch("/:id", (req, res) => {
+function patchProductById(req, res) {
   const id = req.params.id;
-
   if (!id) {
     return badRequest(req, res, "The id is required");
   }
 
   const updatedFields = req.body;
-  const sqlQuerie = `UPDATE ${config.productTableName} SET ? WHERE id = ?`;
+  const sqlQuery = `UPDATE ${config.productTableName} SET ? WHERE id = ?`;
 
   const payload = [updatedFields, id];
-  db.query(sqlQuerie, payload, (err) => {
+  db.query(sqlQuery, payload, (err) => {
     return err
       ? res.status(500).json({
           msg: "Product update failed, try again later",
@@ -95,18 +89,18 @@ router.patch("/:id", (req, res) => {
           success: true,
         });
   });
-});
+}
 
-router.delete("/:id", (req, res) => {
+function deleteProductById(req, res) {
   const id = req.params.id;
 
   if (!id) {
     return badRequest(req, res, "The id is required");
   }
 
-  const sqlQuerie = `DELETE FROM ${config.productTableName} WHERE id = ?`;
+  const sqlQuery = `DELETE FROM ${config.productTableName} WHERE id = ?`;
 
-  db.query(sqlQuerie, id, (err) => {
+  db.query(sqlQuery, id, (err) => {
     return err
       ? res.status(500).json({
           msg: "Product removal failed, try again later",
@@ -117,6 +111,12 @@ router.delete("/:id", (req, res) => {
           success: true,
         });
   });
-});
+}
 
-module.exports = router;
+module.exports = {
+  getAllProducts,
+  getProductById,
+  postProduct,
+  patchProductById,
+  deleteProductById,
+};

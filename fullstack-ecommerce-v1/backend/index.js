@@ -1,7 +1,6 @@
 const express = require("express");
-const mysql = require("mysql");
 const config = require("./config/config.js");
-const productRouter = require("./routes/product.route.js");
+const productsRouter = require("./routes/products.route.js");
 let dbConnection;
 
 try {
@@ -22,10 +21,10 @@ app.listen(config.apiPort, (err) => {
   if (err) {
     throw new Error(err);
   }
-  console.log(`Aplication open on port: ${config.apiPort}`);
+  console.log(`Application open on port: ${config.apiPort}`);
   useRoutes();
 });
 
 function useRoutes() {
-  app.use(routes.products, productRouter);
+  app.use(routes.products, productsRouter);
 }
