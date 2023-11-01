@@ -1,6 +1,7 @@
 const express = require("express");
 const config = require("./config/config.js");
 const productsRouter = require("./routes/products.route.js");
+const cors = require("cors");
 let dbConnection;
 
 try {
@@ -12,6 +13,11 @@ try {
 
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:4200/*",
+  })
+);
 
 const routes = {
   products: "/api/products",
