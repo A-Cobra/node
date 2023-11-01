@@ -1,4 +1,3 @@
-const config = require("../config/config.js");
 const {
   getAllProducts,
   getProductById,

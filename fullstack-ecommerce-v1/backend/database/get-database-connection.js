@@ -4,7 +4,6 @@ const mysql = require("mysql");
 const databaseConnection = (function () {
   let instance;
   function initializeConnection() {
-    console.log("Creating new connection");
     const db = mysql.createConnection({
       host: config.host,
       user: config.user,
@@ -14,8 +13,6 @@ const databaseConnection = (function () {
 
     db.connect((err) => {
       if (err) {
-        console.log("\n\n\n\nERROR CONENCTING DATABASEn\n\n\n");
-        console.log(err);
         throw new Error("Database connection unsuccessful");
       }
     });

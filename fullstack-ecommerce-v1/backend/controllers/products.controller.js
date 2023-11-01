@@ -1,5 +1,7 @@
 const config = require("../config/config.js");
 const db = require("../database/get-database-connection.js").getInstance();
+const internalServerError = require("../helpers/internal-server-error.js");
+const badRequest = require("../helpers/bad-request.js");
 
 function getAllProducts(req, res) {
   const sqlQuery = `SELECT * FROM ${config.productTableName}`;
@@ -30,7 +32,6 @@ function getProductById(req, res) {
     }
 
     const records = result;
-    console.log(records);
 
     if (records.length === 0) {
       return res.status(404).json({
