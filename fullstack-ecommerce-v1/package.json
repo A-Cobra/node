@@ -1,3 +1,11 @@
 {
-  "description": ""
+  "description": "",
+  "scripts": {
+    "frontend": "cd frontend && npm run start",
+    "frontend-o": "cd frontend && npm run open",
+    "backend": "cd backend && npm run start",
+    "backend-dev": "cd backend && npm run dev",
+    "start": "npm run backend && npm run frontend",
+    "dev": "npm run backend-dev && npm run frontend-o"
+  }
 }
