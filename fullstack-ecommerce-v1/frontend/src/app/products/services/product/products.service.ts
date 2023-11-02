@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ProductsService {
   constructor() {
-    console.log('Initializing service');
+    console.log('Creating new instance');
   }
 }
