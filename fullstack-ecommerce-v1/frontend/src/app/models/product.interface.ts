@@ -1,6 +1,5 @@
-export interface Product {
+import { EditProductPayload } from './edit-product-payload.interface';
+
+export interface Product extends EditProductPayload {
   id: number;
-  name: string;
-  price: number;
-  description: string;
 }

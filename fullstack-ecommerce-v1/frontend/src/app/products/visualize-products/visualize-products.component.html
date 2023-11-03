@@ -1,0 +1,20 @@
+<div *ngIf="productsData$ | async as productsData; else productsRetrievalError">
+  <ng-container *ngIf="productsData?.data as products">
+    <ng-container *ngFor="let product of products">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p>
+        Price:
+        <span>{{ product.price | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
+      </p>
+      <button>Edit</button>
+    </ng-container>
+  </ng-container>
+  <ng-template #noProducts>
+    <h1>There are no products yet</h1>
+    <button>Add one</button>
+  </ng-template>
+</div>
+<ng-template #productsRetrievalError>
+  <h1>Error</h1>
+</ng-template>
