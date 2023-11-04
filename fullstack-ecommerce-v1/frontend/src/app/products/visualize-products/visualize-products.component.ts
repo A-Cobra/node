@@ -3,6 +3,8 @@ import { ProductsService } from '../services/product/products.service';
 import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/models/api-response.interface';
 import { Product } from 'src/app/models/product.interface';
+import { ProductEvent } from 'src/app/models/product-event.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-visualize-products',
@@ -15,9 +17,29 @@ export class VisualizeProductsComponent implements OnInit {
     { id: 1, name: 'myName', description: 'anyDesc', price: 14 },
   ];
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.productsData$ = this.productsService.getAllProducts();
+  }
+
+  handleProductCardEvent(productCardEvent: ProductEvent): void {
+    if (productCardEvent.type === 'edit') {
+      this.redirectToEditProductPage(productCardEvent.payload.id);
+      return;
+    }
+    this.deleteProduct(productCardEvent.payload.id);
+  }
+
+  redirectToEditProductPage(productId: number): void {
+    console.log("Redirecting to ['/edit', productId]");
+    console.log(`Router URL: ${this.router.url}`);
+    this.router.navigate(['products', 'edit', productId]);
+  }
+  deleteProduct(productId: number): void {
+    console.log(`Deleting product with id: ${productId}`);
   }
 }

@@ -1,13 +1,9 @@
 <div *ngIf="productsData$ | async as productsData; else productsRetrievalError">
   <ng-container *ngIf="productsData?.data as products">
     <ng-container *ngFor="let product of products">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <p>
-        Price:
-        <span>{{ product.price | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
-      </p>
-      <button>Edit</button>
+      <product-card
+        [product]="product"
+        (event)="handleProductCardEvent($event)"></product-card>
     </ng-container>
   </ng-container>
   <ng-template #noProducts>
@@ -17,4 +13,8 @@
 </div>
 <ng-template #productsRetrievalError>
   <h1>Error</h1>
+  <p>
+    There was an error retrieving the products, please refresh the window or try
+    again later
+  </p>
 </ng-template>

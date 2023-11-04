@@ -8,6 +8,7 @@ import { VisualizeProductsComponent } from './visualize-products/visualize-produ
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     VisualizeProductsComponent,
     ProductFormComponent,
     EditProductComponent,
+    ProductCardComponent,
   ],
   imports: [
     CommonModule,

@@ -52,6 +52,22 @@
       "rules": {
         "prettier/prettier": ["error", { "parser": "angular" }]
       }
+    },
+    {
+      "files": ["**/*"],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "excludedFiles": ["*inline-template-*.component.html"],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
+        ]
+      }
     }
   ]
 }
