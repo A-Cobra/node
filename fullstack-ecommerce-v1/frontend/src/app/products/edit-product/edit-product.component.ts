@@ -21,17 +21,24 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe({
       next: routeParams => {
-        console.log('OK');
-
         const productId = parseInt(routeParams['productId']);
-        console.log('productId');
-        console.log(productId);
         if (isNaN(productId)) {
           this.hasWrongPath = true;
-          console.log('WRONG PATH');
+          return;
         }
-        // console.log(typeof productId);
         this.params = routeParams;
+        this.productsService.getProductById(productId).subscribe({
+          next: apiResponse => {
+            console.log(apiResponse);
+            if (apiResponse?.data) {
+              this.product = apiResponse.data;
+            }
+          },
+          error: err => {
+            console.log('error');
+            console.log(err);
+          },
+        });
         // console.log(routeParams);
       },
       error: err => console.log(err),

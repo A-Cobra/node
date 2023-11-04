@@ -1,2 +1,6 @@
-<p>edit-product works!</p>
 <pre>{{ params | json }}</pre>
+<div *ngIf="hasWrongPath">
+  <h1 class="error">Sorry, the provided Product ID is not valid</h1>
+  <p>Please type only valid whole integer IDs</p>
+</div>
+<product-form *ngIf="product" [product]="product"></product-form>

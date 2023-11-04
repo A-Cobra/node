@@ -16,4 +16,10 @@ export class ProductsService {
   getAllProducts(): Observable<ApiResponse<Product[]>> {
     return this.http.get<ApiResponse<Product[]>>(`${API_URL}/products`);
   }
+
+  getProductById(productId: number): Observable<ApiResponse<Product>> {
+    return this.http.get<ApiResponse<Product>>(
+      `${API_URL}/products/${productId}`
+    );
+  }
 }
