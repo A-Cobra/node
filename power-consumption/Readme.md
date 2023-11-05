@@ -8,6 +8,11 @@ This Node.js application is designed to read the power consumption of an app. It
 - `getPowerConsumptionByGraphicsCard`: Calculates power consumption based on the graphics card power.
 - `getPowerConsumptionByTimeDrivenApproach`: Calculates power consumption based on the length and efficiency of algorithms.
 
+## Screenshots
+
+<img src="./resources/sort_approach.PNG" width="650px;">
+<img src="./resources/image_processing_approach.PNG" width="650px;">
+
 ## Installation
 
 Before running the application, make sure you have [Node.js](https://nodejs.org) installed on your machine (minimum version 12.0.0).
@@ -63,4 +68,4 @@ It's important to note that the project does not include a method for directly m
 
 ## License
 
-This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+This project is licensed under the [Apache License 2.0](../LICENSE).

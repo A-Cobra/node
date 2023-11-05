@@ -1,5 +1,11 @@
 import { TimeManager } from "../models/time-manager.js";
 import { readImageFile } from "../utils/read-image-file.js";
+import {
+  writeCyan,
+  writeMagenta,
+  writeRed,
+  writeYellow,
+} from "../utils/text-helper.js";
 
 export async function getPowerConsumptionByCompressionApproach() {
   // We can get the power consumption by identifying that if we want to render, download, export, etc. an image,
@@ -35,7 +41,9 @@ export async function getPowerConsumptionByCompressionApproach() {
       // Do something with the full size image
       1 + 1;
     }
-    console.log(timeManager.getCurrentTimeMessage());
+
+    // console.log(timeManager.getCurrentTimeMessage());
+    writeYellow(timeManager.getCurrentTimeMessage());
     const timeTakenByProcessingFullImage = timeManager.getCurrentTime();
 
     timeManager.reset();
@@ -49,20 +57,24 @@ export async function getPowerConsumptionByCompressionApproach() {
       // Do something with the compressed size image
       1 + 1;
     }
-    console.log(timeManager.getCurrentTimeMessage());
+    // console.log(timeManager.getCurrentTimeMessage());
+    writeCyan(timeManager.getCurrentTimeMessage());
     const timeTakenByProcessingCompressedImage = timeManager.getCurrentTime();
 
     console.log(
       "Now that the voltage and intensity are relatively similar for both processes, we can divide each power consumption and get a ratio of energy usage, which would incur as well on carbon emissions."
     );
-    console.log(
-      `Ratio compressed image / full sized image: ${timeTakenByProcessingCompressedImage}/${timeTakenByProcessingFullImage}`
+    process.stdout.write("Ratio compressed image / full sized image: ");
+    writeMagenta(
+      `${timeTakenByProcessingCompressedImage}/${timeTakenByProcessingFullImage}`
     );
-    console.log(
-      `Power consumed by Processing compressed image: Multiplier * ${timeTakenByProcessingCompressedImage} / (1000 * 60 * 60 * 1000) KwH`
+    process.stdout.write("Power consumed by Processing compressed image: ");
+    writeRed(
+      `Multiplier * ${timeTakenByProcessingCompressedImage} / (1000 * 60 * 60 * 1000) KwH`
     );
-    console.log(
-      `Power consumed by Processing full size image: Multiplier * ${timeTakenByProcessingFullImage} / (1000 * 60 * 60 * 1000) KwH`
+    process.stdout.write("Power consumed by Processing full size image: ");
+    writeRed(
+      `Multiplier * ${timeTakenByProcessingFullImage} / (1000 * 60 * 60 * 1000) KwH`
     );
   }
 }
