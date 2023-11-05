@@ -144,6 +144,7 @@ dist
 
 
 package-lock.json
+**/package-lock.json
 
 # personal documents
 *.docx
