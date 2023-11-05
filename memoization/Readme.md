@@ -12,7 +12,7 @@ This project demonstrates the calculation of Fibonacci numbers using TypeScript.
 1. Clone the repository:
 
 ```
-git clone https://github.com/A-Cobra/node/tree/develop
+git clone https://github.com/A-Cobra/node
 ```
 
 2. Checkout to the develop branch:
