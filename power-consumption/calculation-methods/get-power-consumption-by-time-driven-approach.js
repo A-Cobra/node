@@ -2,6 +2,12 @@ import { TimeManager } from "../models/time-manager.js";
 import { unsortedArray } from "../utils/unsorted-array.js";
 import { bubbleSort } from "../utils/bubble-sort.js";
 import { quickSort } from "../utils/quick-sort.js";
+import {
+  writeBlue,
+  writeGreen,
+  writeMagenta,
+  writeRed,
+} from "../utils/text-helper.js";
 
 export function getPowerConsumptionByTimeDrivenApproach() {
   // We can get the power consumption by using the following formula: Consumed Power = Voltage * Intensity * Time
@@ -19,25 +25,26 @@ export function getPowerConsumptionByTimeDrivenApproach() {
 
   const timeManager = new TimeManager("Array Sorting with Bubble Sort");
   bubbleSort(unsortedArray1);
-  console.log(timeManager.getCurrentTimeMessage());
+  writeBlue(timeManager.getCurrentTimeMessage());
   const timeTakenByBubbleSort = timeManager.getCurrentTime();
 
   timeManager.reset();
   timeManager.setTask("Array Sorting with Quick Sort");
   quickSort(unsortedArray2);
-  console.log(timeManager.getCurrentTimeMessage());
+  writeGreen(timeManager.getCurrentTimeMessage());
   const timeTakenByQuickSort = timeManager.getCurrentTime();
 
   console.log(
     "Now that the voltage and intensity are relatively similar for both processes, we can divide each power consumption and get a ratio of energy usage, which would incur as well on carbon emissions."
   );
-  console.log(
-    `Ratio quick sort / bubble sort: ${timeTakenByQuickSort}/${timeTakenByBubbleSort}`
+  process.stdout.write("Ratio quick sort / bubble sort: ");
+  writeMagenta(`${timeTakenByQuickSort}/${timeTakenByBubbleSort}`);
+  process.stdout.write("Power consumed by quick sort: ");
+  writeRed(
+    `Multiplier * ${timeTakenByQuickSort} / (1000 * 60 * 60 * 1000) KwH`
   );
-  console.log(
-    `Power consumed by quick sort: Multiplier * ${timeTakenByQuickSort} / (1000 * 60 * 60 * 1000) KwH`
-  );
-  console.log(
-    `Power consumed by bubble sort: Multiplier * ${timeTakenByBubbleSort} / (1000 * 60 * 60 * 1000) KwH`
+  process.stdout.write("Power consumed by bubble sort: ");
+  writeRed(
+    `Multiplier * ${timeTakenByBubbleSort} / (1000 * 60 * 60 * 1000) KwH`
   );
 }

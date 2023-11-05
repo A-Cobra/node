@@ -2,6 +2,14 @@ import { getEnergyConsumed } from "../utils/get-energy-consumed.js";
 import { readImageFile } from "../utils/read-image-file.js";
 import { TimeManager } from "../models/time-manager.js";
 import { getPowerDrawnByGPU } from "../utils/get-power-drawn-by-gpu.js";
+import {
+  writeBlue,
+  writeGreen,
+  writeMagenta,
+  writeRed,
+  writeTextWithColors,
+  writeYellow,
+} from "../utils/text-helper.js";
 
 export async function getPowerConsumptionByGraphicsCard() {
   // calculates gpu usage by getting the average gpu power over a time period
@@ -17,7 +25,7 @@ export async function getPowerConsumptionByGraphicsCard() {
 
   // to calculate idle gpu average power, it could also calculate the gpu power for the rest of processes
   for (let index = 0; index < idleCalculationTimes; index++) {
-    console.log("Processing idle gpu power...");
+    writeBlue("Processing idle gpu power...");
     idleGpuAveragePower += await getPowerDrawnByGPU();
   }
   idleGpuAveragePower /= idleCalculationTimes;
@@ -35,7 +43,7 @@ export async function getPowerConsumptionByGraphicsCard() {
     const timeManager = new TimeManager("Processing full size image");
     for (let index = 0; index < bufferSize; index++) {
       if (index % GPU_UTILIZATION_CHECK_RATE === 0) {
-        console.log("Processing current gpu power...");
+        writeMagenta("Processing current gpu power...", "red");
         const powerDrawnByGPU = await getPowerDrawnByGPU();
         gpuAveragePower += powerDrawnByGPU;
       }
@@ -49,11 +57,16 @@ export async function getPowerConsumptionByGraphicsCard() {
       gpuAveragePower - idleGpuAveragePower >= 0
         ? gpuAveragePower - idleGpuAveragePower
         : 0;
-    console.log(`Idle GPU power: ${idleGpuAveragePower}w`);
-    console.log(`Process + background tasks power: ${gpuAveragePower}w`);
-    console.log(`Average task power: ${taskGPUAveragePower}w`);
-    console.log(`Elapsed Time: ${elapsedTime}ms`);
+    process.stdout.write("Idle GPU power: ");
+    writeBlue(`${idleGpuAveragePower}w`);
+    process.stdout.write("Process + background tasks power: ");
+    writeMagenta(`${gpuAveragePower}w`);
+    process.stdout.write("Average task power: ");
+    writeYellow(`${taskGPUAveragePower}w`);
+    process.stdout.write("Elapsed Time: ");
+    writeGreen(`${elapsedTime}ms`);
     const energy = getEnergyConsumed(elapsedTime, taskGPUAveragePower);
-    console.log(`Graphical Processing Unit consumed ${energy}KwH`);
+    process.stdout.write("Graphical Processing Unit consumed ");
+    writeRed(`${energy}KwH`);
   }
 }
