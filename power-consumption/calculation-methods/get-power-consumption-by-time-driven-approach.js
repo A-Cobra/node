@@ -39,11 +39,11 @@ export function getPowerConsumptionByTimeDrivenApproach() {
   );
   process.stdout.write("Ratio quick sort / bubble sort: ");
   writeMagenta(`${timeTakenByQuickSort}/${timeTakenByBubbleSort}`);
-  process.stdout.write("`Power consumed by quick sort: ");
+  process.stdout.write("Power consumed by quick sort: ");
   writeRed(
     `Multiplier * ${timeTakenByQuickSort} / (1000 * 60 * 60 * 1000) KwH`
   );
-  process.stdout.write("`Power consumed by bubble sort: ");
+  process.stdout.write("Power consumed by bubble sort: ");
   writeRed(
     `Multiplier * ${timeTakenByBubbleSort} / (1000 * 60 * 60 * 1000) KwH`
   );
