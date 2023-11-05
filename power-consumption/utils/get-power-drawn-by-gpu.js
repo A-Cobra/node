@@ -6,7 +6,7 @@ export async function getPowerDrawnByGPU() {
       try {
         const powerDrawn = await si
           .graphics()
-          .then((data) => data.controllers[0].powerDraw);
+          .then((data) => data.controllers[1].powerDraw);
         resolve(powerDrawn);
       } catch (error) {
         reject(error);
