@@ -1,4 +1,8 @@
+@import '../../../colors';
 main {
+  .title {
+    color: $navy-blue;
+  }
   display: grid;
   row-gap: 20px;
   padding: 30px 100px;
@@ -6,6 +10,14 @@ main {
     display: grid;
     grid-gap: 15px;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    .card {
+      padding: 20px;
+      border: 2px solid $light-gray;
+      &:hover {
+        border: 2px solid $navy-blue;
+        box-shadow: 3px 6px 10px $main-color-shadow;
+      }
+    }
   }
 }
 

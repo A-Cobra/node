@@ -1,14 +1,14 @@
 <main>
-  <h1>View Products</h1>
+  <h1 class="title">View Products</h1>
   <div
     *ngIf="productsData$ | async as productsData; else productsRetrievalError">
     <div class="grid-container">
       <ng-container *ngIf="productsData?.data as products">
-        <ng-container *ngFor="let product of products">
+        <div class="card" *ngFor="let product of products">
           <product-card
             [product]="product"
             (event)="handleProductCardEvent($event)"></product-card>
-        </ng-container>
+        </div>
       </ng-container>
     </div>
     <ng-template #noProducts>
