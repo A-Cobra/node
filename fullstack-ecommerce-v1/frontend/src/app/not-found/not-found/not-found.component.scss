@@ -1,0 +1,36 @@
+@import '../../../colors';
+
+$navy-blue: rgba(31, 62, 114, 1);
+.error {
+  color: red;
+}
+div {
+  display: grid;
+  gap: 15px;
+  padding: 20px 110px;
+  a {
+    width: 150px;
+    text-align: center;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-size: 18px;
+    color: $light-gray;
+    background-color: $twilight;
+    border-radius: 5px;
+    &.active {
+      color: $light-purple;
+      background-color: $navy-blue;
+      box-shadow: 3px 6px 6px $main-color-shadow;
+    }
+    &:hover {
+      color: $twilight;
+      background-color: $light-sky-blue;
+      box-shadow: 3px 6px 6px $main-color-shadow;
+    }
+  }
+}
+@media screen and (max-width: 720px) {
+  div {
+    padding: 20px 30px;
+  }
+}
