@@ -35,9 +35,7 @@ export class VisualizeProductsComponent implements OnInit {
   }
 
   redirectToEditProductPage(productId: number): void {
-    console.log("Redirecting to ['/edit', productId]");
-    console.log(`Router URL: ${this.router.url}`);
-    this.router.navigate(['products', 'edit', productId]);
+    this.router.navigate(['/products', 'edit', productId]);
   }
   deleteProduct(productId: number): void {
     console.log(`Deleting product with id: ${productId}`);

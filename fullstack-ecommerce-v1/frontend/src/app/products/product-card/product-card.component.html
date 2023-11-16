@@ -1,12 +1,12 @@
-<div>
+<div class="grid-container">
   <h3>{{ product.name }}</h3>
   <p>{{ product.description }}</p>
   <p>
     Price:
     <span>{{ product.price | currency: 'USD' : 'symbol' : '1.2-2' }}</span>
   </p>
-  <div class="buttons-container">
-    <button (click)="emitEvent('edit')">Edit</button>
-    <button (click)="emitEvent('delete')">Delete</button>
+  <div class="button-container">
+    <button class="button edit" (click)="emitEvent('edit')">Edit</button>
+    <button class="button delete" (click)="emitEvent('delete')">Delete</button>
   </div>
 </div>

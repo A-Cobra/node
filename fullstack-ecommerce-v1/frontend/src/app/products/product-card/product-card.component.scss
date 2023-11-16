@@ -1,0 +1,43 @@
+@import '../../../colors';
+$row-gap: 12px;
+
+.grid-container {
+  display: grid;
+  row-gap: $row-gap;
+  padding: 20px;
+  .button {
+    flex: 1 1 50px;
+    cursor: pointer;
+    text-align: center;
+    padding: 8px 14px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid;
+    flex-wrap: wrap;
+    max-width: 100px;
+    &.edit {
+      color: white;
+      background-color: $gold;
+      &:hover {
+        color: black;
+        background-color: $light-gold;
+        border: 1px solid $gold;
+        box-shadow: 3px 6px 6px $gold-shadow;
+      }
+    }
+    &.delete {
+      border: 1px solid $red;
+      color: white;
+      background-color: $red;
+      &:hover {
+        border: 1px solid $burgundy;
+        background-color: $burgundy;
+        box-shadow: 3px 6px 6px $red-shadow;
+      }
+    }
+    &-container {
+      gap: 20px 15px;
+      display: flex;
+    }
+  }
+}
