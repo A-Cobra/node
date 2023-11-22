@@ -13,4 +13,5 @@ module.exports = {
   database: process.env.DATABASE,
   apiPort: process.env.API_PORT,
   productTableName: process.env.PRODUCT_TABLE_NAME,
+  maxNumberOfProducts: process.env.MAX_NUMBER_OF_PRODUCTS,
 };

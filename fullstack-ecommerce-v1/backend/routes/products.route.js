@@ -4,6 +4,7 @@ const {
   postProduct,
   patchProductById,
   deleteProductById,
+  getNumberOfProducts,
 } = require("../controllers/products.controller.js");
 
 const Router = require("express").Router;
@@ -11,6 +12,8 @@ const Router = require("express").Router;
 const router = Router();
 
 router.get("/", getAllProducts);
+
+router.get("/number-of-products", getNumberOfProducts);
 
 router.get("/:id", getProductById);
 
