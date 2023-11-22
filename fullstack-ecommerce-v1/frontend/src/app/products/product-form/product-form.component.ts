@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+} from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Product } from 'src/app/models/product.interface';
 
@@ -18,10 +23,14 @@ export class ProductFormComponent implements AfterViewInit {
 
   form = this.buildReactiveForm();
 
-  constructor(private fb: NonNullableFormBuilder) {}
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngAfterViewInit(): void {
     this.form = this.buildReactiveForm();
+    this.cdr.detectChanges();
   }
 
   buildReactiveForm() {

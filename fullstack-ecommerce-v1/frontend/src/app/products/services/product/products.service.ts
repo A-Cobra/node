@@ -22,4 +22,12 @@ export class ProductsService {
       `${API_URL}/products/${productId}`
     );
   }
+
+  deleteProductById(id: number): void {
+    this.http.delete<ApiResponse<null>>(`${API_URL}/products/${id}`).subscribe({
+      error: () => {
+        throw new Error();
+      },
+    });
+  }
 }

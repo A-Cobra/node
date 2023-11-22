@@ -23,7 +23,7 @@ export class VisualizeProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.productsData$ = this.productsService.getAllProducts();
+    this.updateProducts();
   }
 
   handleProductCardEvent(productCardEvent: ProductEvent): void {
@@ -38,6 +38,17 @@ export class VisualizeProductsComponent implements OnInit {
     this.router.navigate(['/products', 'edit', productId]);
   }
   deleteProduct(productId: number): void {
-    console.log(`Deleting product with id: ${productId}`);
+    if (window.confirm('DO you really want to delete the product?')) {
+      try {
+        this.productsService.deleteProductById(productId);
+        this.updateProducts();
+      } catch (error) {
+        console.log('Error deleting product');
+      }
+    }
+  }
+
+  updateProducts(): void {
+    this.productsData$ = this.productsService.getAllProducts();
   }
 }
