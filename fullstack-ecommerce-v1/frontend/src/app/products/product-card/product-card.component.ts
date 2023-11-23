@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  ProductEvent,
-  ProductEventType,
-} from 'src/app/models/product-event.interface';
+import { ProductEventType } from 'src/app/models/product-event-type.type';
+import { ProductEvent } from 'src/app/models/product-event.interface';
 import { Product } from 'src/app/models/product.interface';
 
 @Component({
@@ -14,7 +12,7 @@ export class ProductCardComponent {
   @Input()
   product!: Product;
   @Output()
-  event = new EventEmitter<ProductEvent>();
+  event = new EventEmitter<ProductEvent<null>>();
   constructor() {}
 
   emitEvent(eventType: ProductEventType): void {
@@ -22,6 +20,7 @@ export class ProductCardComponent {
       type: eventType,
       payload: {
         id: this.product.id,
+        optional: null,
       },
     });
   }

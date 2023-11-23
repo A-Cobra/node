@@ -1,0 +1,19 @@
+@import '../../../colors';
+
+main {
+  display: grid;
+  gap: 15px;
+  padding: 20px 110px;
+  justify-items: center;
+  h1 {
+    color: $navy-blue;
+  }
+  .error {
+    color: red;
+  }
+}
+@media screen and (max-width: 720px) {
+  main {
+    padding: 20px 30px;
+  }
+}

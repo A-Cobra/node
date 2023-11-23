@@ -1,8 +1,37 @@
-<form ngSubmit="onFormSubmit()" [formGroup]="form">
-  <input type="text" formControlName="name" />
-  <input type="text" formControlName="price" />
-  <textarea formControlName="description"></textarea>
-</form>
-<pre>{{ form.value | json }}</pre>
-<h1>Input product values</h1>
-<pre>{{ product | json }}</pre>
+<div class="box">
+  <form [formGroup]="form">
+    <div class="form-control">
+      <label for="name">Product Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        id="name"
+        class="textbox"
+        placeholder="Product Name" />
+    </div>
+
+    <div class="form-control currency">
+      <label for="price">Product Price</label>
+      <input
+        type="text"
+        formControlName="price"
+        id="price"
+        class="textbox"
+        placeholder="Product Price"
+        appFloatNumberOrNumberRange
+        [reactiveFormControl]="form.controls['price']"
+        [minValue]="0" />
+    </div>
+
+    <div class="form-control">
+      <label for="description">Product Description</label
+      ><textarea formControlName="description" id="description"></textarea>
+    </div>
+
+    <div class="button-container">
+      <button type="button__save" (click)="onFormSubmission()">
+        {{ formType === 'create' ? 'Create Note' : 'Save Note Changes' }}
+      </button>
+    </div>
+  </form>
+</div>

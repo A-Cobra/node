@@ -1,4 +1,4 @@
-export interface EditProductPayload {
+export interface EditCreateProductPayload {
   name: string;
   description: string;
   price: number;

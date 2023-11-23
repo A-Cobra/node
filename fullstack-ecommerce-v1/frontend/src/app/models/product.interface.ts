@@ -1,5 +1,5 @@
-import { EditProductPayload } from './edit-product-payload.interface';
+import { EditCreateProductPayload } from './edit-create-product-payload.interface';
 
-export interface Product extends EditProductPayload {
+export interface Product extends EditCreateProductPayload {
   id: number;
 }

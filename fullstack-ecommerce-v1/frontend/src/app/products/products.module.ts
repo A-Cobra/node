@@ -9,6 +9,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { FloatNumberOrNumberRangeDirective } from '../directives/float-number-or-number-range.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ProductsRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FloatNumberOrNumberRangeDirective,
   ],
   exports: [CreateProductComponent],
   providers: [ProductsService],

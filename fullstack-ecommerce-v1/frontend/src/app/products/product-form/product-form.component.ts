@@ -2,9 +2,14 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
+  Output,
 } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
+import { EditCreateProductPayload } from 'src/app/models/edit-create-product-payload.interface';
+import { ProductEventType } from 'src/app/models/product-event-type.type';
+import { ProductEvent } from 'src/app/models/product-event.interface';
 import { Product } from 'src/app/models/product.interface';
 
 @Component({
@@ -14,12 +19,18 @@ import { Product } from 'src/app/models/product.interface';
 })
 export class ProductFormComponent implements AfterViewInit {
   @Input()
+  formType: ProductEventType = 'create';
+
+  @Input()
   product: Product = {
     id: 0,
     name: '',
     description: '',
     price: 0,
   };
+
+  @Output()
+  formSubmission = new EventEmitter<ProductEvent<EditCreateProductPayload>>();
 
   form = this.buildReactiveForm();
 
@@ -41,7 +52,13 @@ export class ProductFormComponent implements AfterViewInit {
     });
   }
 
-  onFormSubmit() {
-    console.log('Submitting form');
+  onFormSubmission() {
+    this.formSubmission.emit({
+      type: this.formType,
+      payload: {
+        id: this.product.id,
+        optional: this.form.value as EditCreateProductPayload,
+      },
+    });
   }
 }

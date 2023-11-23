@@ -26,7 +26,7 @@ export class VisualizeProductsComponent implements OnInit {
     this.updateProducts();
   }
 
-  handleProductCardEvent(productCardEvent: ProductEvent): void {
+  handleProductCardEvent(productCardEvent: ProductEvent<null>): void {
     if (productCardEvent.type === 'edit') {
       this.redirectToEditProductPage(productCardEvent.payload.id);
       return;

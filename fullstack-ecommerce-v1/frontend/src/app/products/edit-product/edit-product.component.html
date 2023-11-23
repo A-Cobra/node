@@ -1,6 +1,20 @@
-<pre>{{ params | json }}</pre>
-<div *ngIf="hasWrongPath">
+<main *ngIf="!hasWrongPath; else wrongUrlError">
+  <h1 class="title">Edit a Product</h1>
+  <div *ngIf="isFetchingProcessStarted" class="wrapper">
+    <product-form
+      *ngIf="product"
+      [product]="product"
+      formType="edit"
+      (formSubmission)="onFormSubmission($event)"></product-form>
+
+    <ng-template #notesRetrievalError>
+      <h1 class="error">Error</h1>
+      <p>There was an error retrieving the note, please verify the id</p>
+    </ng-template>
+  </div>
+</main>
+
+<ng-template #wrongUrlError>
   <h1 class="error">Sorry, the provided Product ID is not valid</h1>
   <p>Please type only valid whole integer IDs</p>
-</div>
-<product-form *ngIf="product" [product]="product"></product-form>
+</ng-template>
