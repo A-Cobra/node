@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ApiResponse } from 'src/app/models/api-response.interface';
 import { EditCreateProductPayload } from 'src/app/models/edit-create-product-payload.interface';
 import { Product } from 'src/app/models/product.interface';
@@ -47,5 +47,26 @@ export class ProductsService {
           throw new Error();
         },
       });
+  }
+
+  postProduct(
+    product: EditCreateProductPayload
+  ): Observable<ApiResponse<null>> {
+    return this.http
+      .post<ApiResponse<null>>(`${API_URL}/products`, product)
+      .pipe(
+        map(data => {
+          if (!data.success) {
+            throw new Error();
+          }
+          return data;
+        })
+      );
+    // .subscribe({
+    //   error: () => {
+    //     console.log('ERROR IN SERVICE');
+    //     throw new Error();
+    //   },
+    // });
   }
 }
