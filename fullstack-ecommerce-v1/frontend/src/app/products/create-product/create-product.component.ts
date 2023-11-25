@@ -3,6 +3,13 @@ import { ProductsService } from '../services/product/products.service';
 import { EditCreateProductPayload } from 'src/app/models/edit-create-product-payload.interface';
 import { ProductEvent } from 'src/app/models/product-event.interface';
 import { Router } from '@angular/router';
+import {
+  MatSnackBar,
+  MatSnackBarConfig,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
@@ -10,9 +17,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-product.component.scss'],
 })
 export class CreateProductComponent {
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  message = {
+    error:
+      'Sorry, the limit for product creation was reached, please delete any other product an try again later',
+    success: (productName: string) =>
+      `Product ${productName} created successfully`,
+  };
+
   constructor(
     private productsService: ProductsService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   onFormSubmission(
@@ -22,11 +39,29 @@ export class CreateProductComponent {
       .postProduct(createProductEvent.payload.optional)
       .subscribe({
         error: () => {
-          console.log('ERROR creating product');
+          const snackBarRef = this.snackBar.open(
+            this.message.error,
+            'Go Home',
+            {
+              duration: 3500,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            }
+          );
+          snackBarRef
+            .onAction()
+            .pipe(take(1))
+            .subscribe({
+              next: () => this.goHome(),
+            });
         },
         next: () => {
-          this.router.navigate(['/products']);
+          this.goHome();
         },
       });
+  }
+
+  goHome(): void {
+    this.router.navigate(['/products']);
   }
 }

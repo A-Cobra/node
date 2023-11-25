@@ -11,6 +11,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { FloatNumberOrNumberRangeDirective } from '../directives/float-number-or-number-range.directive';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     CreateProductComponent,
@@ -25,6 +27,7 @@ import { FloatNumberOrNumberRangeDirective } from '../directives/float-number-or
     HttpClientModule,
     ReactiveFormsModule,
     FloatNumberOrNumberRangeDirective,
+    MatSnackBarModule,
   ],
   exports: [CreateProductComponent],
   providers: [ProductsService],
