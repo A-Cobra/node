@@ -68,6 +68,7 @@ form {
       &:hover {
         color: $bright-blue;
         font-weight: 700;
+        transition: ease-in-out 0.5s;
       }
     }
   }
@@ -140,6 +141,7 @@ form {
       color: $twilight;
       background-color: $light-sky-blue;
       box-shadow: 3px 6px 6px $main-color-shadow;
+      transition: ease-in-out 0.5s;
     }
   }
 }

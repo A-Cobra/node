@@ -19,6 +19,7 @@ main {
       &:hover {
         border: 2px solid $navy-blue;
         box-shadow: 3px 6px 10px $main-color-shadow;
+        transition: ease-in-out 0.5s;
       }
     }
   }

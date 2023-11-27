@@ -25,14 +25,9 @@ export class ProductsService {
   }
 
   patchProductById(productId: number, payload: EditCreateProductPayload): void {
-    console.log('PATCHING');
     this.http
       .patch<ApiResponse<null>>(`${API_URL}/products/${productId}`, payload)
       .subscribe({
-        next: data => {
-          console.log('RESPONSE IN PATCHING');
-          console.log(data);
-        },
         error: () => {
           throw new Error();
         },
@@ -62,11 +57,5 @@ export class ProductsService {
           return data;
         })
       );
-    // .subscribe({
-    //   error: () => {
-    //     console.log('ERROR IN SERVICE');
-    //     throw new Error();
-    //   },
-    // });
   }
 }

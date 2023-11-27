@@ -23,6 +23,7 @@ $row-gap: 12px;
         background-color: $light-gold;
         border: 1px solid $gold;
         box-shadow: 3px 6px 6px $gold-shadow;
+        transition: ease-in-out 0.3s;
       }
     }
     &.delete {
@@ -33,6 +34,7 @@ $row-gap: 12px;
         border: 1px solid $burgundy;
         background-color: $burgundy;
         box-shadow: 3px 6px 6px $red-shadow;
+        transition: ease-in-out 0.3s;
       }
     }
     &-container {

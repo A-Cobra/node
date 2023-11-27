@@ -21,6 +21,7 @@ li {
       font-weight: 600;
       color: $light-gray;
       background-color: $bright-blue;
+      transition: ease-in-out 0.3s;
     }
   }
 }
@@ -29,6 +30,7 @@ nav {
   background-color: $light-sky-blue;
   &:hover {
     box-shadow: 3px 6px 6px $main-color-shadow;
+    transition: ease-in-out 0.3s;
   }
 }
 
