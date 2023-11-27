@@ -7,14 +7,16 @@
       formType="edit"
       (formSubmission)="onFormSubmission($event)"></product-form>
 
-    <ng-template #notesRetrievalError>
+    <div *ngIf="wasNotFound">
       <h1 class="error">Error</h1>
-      <p>There was an error retrieving the note, please verify the id</p>
-    </ng-template>
+      <p>There was an error retrieving the product, please verify the id</p>
+    </div>
   </div>
 </main>
 
 <ng-template #wrongUrlError>
-  <h1 class="error">Sorry, the provided Product ID is not valid</h1>
-  <p>Please type only valid whole integer IDs</p>
+  <main>
+    <h1 class="error">Sorry, the provided Product ID is not valid</h1>
+    <p>Please type only valid whole integer IDs</p>
+  </main>
 </ng-template>
