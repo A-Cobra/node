@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/product/products.service';
-import { Observable } from 'rxjs';
+import { Observable, map, take, tap } from 'rxjs';
 import { ApiResponse } from 'src/app/models/api-response.interface';
 import { Product } from 'src/app/models/product.interface';
 import { ProductEvent } from 'src/app/models/product-event.interface';
@@ -10,6 +10,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-visualize-products',
@@ -26,15 +27,15 @@ export class VisualizeProductsComponent implements OnInit {
     error: 'There was a problem deleting the product, please try again later',
   };
 
+  isFetchingProcessFinished = false;
+
   productsData$!: Observable<ApiResponse<Product[]>>;
-  prods: Product[] = [
-    { id: 1, name: 'myName', description: 'anyDesc', price: 14 },
-  ];
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -82,6 +83,15 @@ export class VisualizeProductsComponent implements OnInit {
   }
 
   updateProducts(): void {
+    this.spinner.show();
+
     this.productsData$ = this.productsService.getAllProducts();
+
+    this.productsData$.pipe(take(1)).subscribe({
+      next: () => {
+        this.isFetchingProcessFinished = true;
+        this.spinner.hide();
+      },
+    });
   }
 }

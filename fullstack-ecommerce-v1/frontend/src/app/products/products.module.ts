@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { CreateProductComponent } from './create-product/create-product.component';
@@ -12,6 +12,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { FloatNumberOrNumberRangeDirective } from '../directives/float-number-or-number-range.directive';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     FloatNumberOrNumberRangeDirective,
     MatSnackBarModule,
+    NgxSpinnerModule,
   ],
   exports: [CreateProductComponent],
   providers: [ProductsService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProductsModule {}
