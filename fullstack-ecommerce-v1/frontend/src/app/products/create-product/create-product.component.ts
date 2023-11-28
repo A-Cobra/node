@@ -9,7 +9,8 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { take } from 'rxjs';
+import { finalize, take } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-product',
@@ -29,14 +30,21 @@ export class CreateProductComponent {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) {}
 
   onFormSubmission(
     createProductEvent: ProductEvent<EditCreateProductPayload>
   ): void {
+    this.spinner.show();
     this.productsService
       .postProduct(createProductEvent.payload.optional)
+      .pipe(
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
       .subscribe({
         error: () => {
           const snackBarRef = this.snackBar.open(

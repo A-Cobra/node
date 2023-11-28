@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/models/product.interface';
 import { ProductsService } from '../services/product/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,8 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { take } from 'rxjs';
+import { finalize, take, tap } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-edit-product',
@@ -26,6 +27,7 @@ export class EditProductComponent implements OnInit {
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   message = {
     notFound: 'Sorry, the product was not found',
     success: (productName: string) =>
@@ -38,14 +40,19 @@ export class EditProductComponent implements OnInit {
       `Product ${productName} successfully updated`,
   };
 
+  @ViewChild('messageContainer')
+  messageContainer!: ElementRef;
+
   constructor(
     private productsService: ProductsService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.activatedRoute.params.subscribe({
       next: routeParams => {
         const productId = parseInt(routeParams['productId']);
@@ -55,29 +62,36 @@ export class EditProductComponent implements OnInit {
         }
         this.isFetchingProcessStarted = true;
         this.params = routeParams;
-        this.productsService.getProductById(productId).subscribe({
-          next: apiResponse => {
-            if (apiResponse?.data) {
-              this.product = apiResponse.data;
-            }
-          },
-          error: err => {
-            this.wasNotFound = true;
-            const snackBarRef = this.snackBar.open(
-              this.message.notFound,
-              'Go Home',
-              {
-                duration: 3500,
+        this.productsService
+          .getProductById(productId)
+          .pipe(
+            finalize(() => {
+              this.spinner.hide();
+            })
+          )
+          .subscribe({
+            next: apiResponse => {
+              if (apiResponse?.data) {
+                this.product = apiResponse.data;
               }
-            );
-            snackBarRef
-              .onAction()
-              .pipe(take(1))
-              .subscribe({
-                next: () => this.goHome(),
-              });
-          },
-        });
+            },
+            error: err => {
+              this.wasNotFound = true;
+              const snackBarRef = this.snackBar.open(
+                this.message.notFound,
+                'Go Home',
+                {
+                  duration: 3500,
+                }
+              );
+              snackBarRef
+                .onAction()
+                .pipe(take(1))
+                .subscribe({
+                  next: () => this.goHome(),
+                });
+            },
+          });
       },
       error: () => {
         this.snackBar.open(this.message.routeParamsError, undefined, {
@@ -100,7 +114,16 @@ export class EditProductComponent implements OnInit {
 
     snackBarRef
       .onAction()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        tap(() => {
+          this.messageContainer.nativeElement.innerHTML = 'Saving changes...';
+          this.spinner.show();
+        }),
+        finalize(() => {
+          this.spinner.hide();
+        })
+      )
       .subscribe({
         next: () => {
           try {

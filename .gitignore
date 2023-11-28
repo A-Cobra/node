@@ -147,5 +147,6 @@ package-lock.json
 # personal documents
 *.docx
 *.temp
+*.tmp
 *.rar
 *.pdf
