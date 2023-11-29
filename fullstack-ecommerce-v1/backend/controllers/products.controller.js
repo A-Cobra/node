@@ -9,7 +9,7 @@ function getAllProducts(req, res) {
   db.query(sqlQuery, (err, result) => {
     return err
       ? internalServerError(err)
-      : res.status(201).json({
+      : res.status(200).json({
           msg: "Products retrieved correctly",
           success: true,
           data: result,
@@ -41,7 +41,7 @@ function getProductById(req, res) {
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       msg: "Product retrieved correctly",
       success: true,
       data: records[0],
