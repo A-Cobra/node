@@ -6,6 +6,7 @@ const {
   deleteProductById,
   getNumberOfProducts,
 } = require("../controllers/products.controller.js");
+const authenticateUser = require("../middlewares/authenticate-user.js");
 
 const Router = require("express").Router;
 
@@ -21,6 +22,6 @@ router.post("/", postProduct);
 
 router.patch("/:id", patchProductById);
 
-router.delete("/:id", deleteProductById);
+router.delete("/:id", authenticateUser, deleteProductById);
 
 module.exports = router;
