@@ -2,16 +2,12 @@ const dbConnection =
   require("../../database/get-database-connection.js").getInstance();
 const config = require("../../config/config.js");
 
-function removeExistingRefreshToken(email) {
-  const sqlQuery = `DELETE FROM ${config.validRefreshTokenTableName} WHERE email = ?`;
-  dbConnection.query(sqlQuery, email, (err, res) => {
+function removeExistingRefreshToken(token) {
+  const sqlQuery = `DELETE FROM ${config.validRefreshTokenTableName} WHERE token = ?`;
+  dbConnection.query(sqlQuery, token, (err) => {
     if (err) {
-      console.log("err deleting row");
-      console.log(err);
-      return;
+      throw Error("There was an error in the database");
     }
-    console.log("res");
-    console.log(res);
   });
 }
 

@@ -1,12 +1,12 @@
 const badRequest = require("../helpers/bad-request");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config.js");
+const hasValidTokenStructure = require("../helpers/auth/has-valid-token-structure.js");
 
 function authenticateUser(req, res, next) {
   const authHeader =
     req.headers["authorization"] || req.headers["Authorization"];
-  const bearerRegex = /Bearer .+/g;
-  const hasValidTokenStructure = authHeader && authHeader.match(bearerRegex);
+  const hasValidTokenStructure = hasValidTokenStructure(authHeader);
   if (!hasValidTokenStructure) {
     return badRequest(
       req,

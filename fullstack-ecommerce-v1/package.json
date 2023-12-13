@@ -3,6 +3,7 @@
   "scripts": {
     "frontend": "cd frontend && npm run start",
     "frontend-o": "cd frontend && npm run sto",
+    "auth-server-dev": "cd backend && npm run auth-server-dev",
     "backend": "cd backend && npm run start",
     "backend-dev": "cd backend && npm run dev",
     "start": "npm run backend && npm run frontend",

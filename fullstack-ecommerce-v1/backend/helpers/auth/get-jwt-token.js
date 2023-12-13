@@ -1,15 +1,9 @@
-const config = require("../../config/config.js");
-const jsonwebtoken = require("jsonwebtoken");
+const getAccessToken = require("./get-access-token.js");
+const getRefreshToken = require("./get-refresh-token.js");
 
 function getJWTTokens(email) {
-  const SECRET = config.jwtSecret;
-  const REFRESH_SECRET = config.jwtRefreshSecret;
-  const accessToken = jsonwebtoken.sign({ email }, SECRET, {
-    expiresIn: "15m",
-  });
-  const refreshAccessToken = jsonwebtoken.sign({ email }, REFRESH_SECRET, {
-    expiresIn: "8h",
-  });
+  const accessToken = getAccessToken(email);
+  const refreshAccessToken = getRefreshToken(email);
   return { accessToken, refreshAccessToken };
 }
 
