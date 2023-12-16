@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private _isLoggedIn = false;
+  private _isLoggedIn = true;
   private isLoggedInSubject = new BehaviorSubject<boolean>(this._isLoggedIn);
   private isLoggedOutSubject = new BehaviorSubject<boolean>(!this._isLoggedIn);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();

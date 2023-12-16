@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  CanLoad,
+  Route,
+  Router,
   RouterStateSnapshot,
+  UrlSegment,
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,17 +15,31 @@ import { AuthService } from '../auth/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class IsLoggedInGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+export class IsLoggedInGuard implements CanLoad {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
   ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
     | boolean
-    | UrlTree {
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
     console.log('ON GUARD');
-    return this.authService.isLoggedOut$;
+    // return true;
+    this.authService.isLoggedOut$.subscribe({
+      next: isLoggedOut => {
+        if (!isLoggedOut) {
+          this.router.navigate(['/products']);
+          return false;
+        }
+        return true;
+      },
+    });
+
+    return true;
   }
 }
