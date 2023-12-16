@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,11 @@ const routes: Routes = [
     path: 'products',
     loadChildren: () =>
       import('./products/products.module').then(m => m.ProductsModule),
+  },
+  {
+    path: 'auth',
+    canLoad: [IsLoggedInGuard],
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: '**',
