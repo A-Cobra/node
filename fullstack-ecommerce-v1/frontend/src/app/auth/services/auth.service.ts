@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  finalize,
+  of,
+  tap,
+} from 'rxjs';
 import { LoginPayload } from 'src/app/models/login-payload.interface';
 import { SuccessfulLoginResponse } from 'src/app/models/successful-login-response.interface';
 import { environment } from 'src/environments/environment';
@@ -53,7 +60,38 @@ export class AuthService {
     this.isLoggedOutSubject.next(!this._isLoggedIn);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.verifyExistingRefreshTokenInLocalStorage();
+  }
 
-  verifyExistingRefreshTokenInLocalStorage(): void {}
+  verifyExistingRefreshTokenInLocalStorage(): void {
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+    if (!refreshToken) {
+      this._isLoggedIn = false;
+      this.emitNewLoggedInOutValues();
+      return;
+    }
+
+    this.http
+      .post(`${API_URL}/auth/verify-refresh-token`, { refreshToken })
+      .pipe(
+        finalize(() => {
+          this.emitNewLoggedInOutValues();
+        })
+      )
+      .subscribe({
+        next: () => {
+          this._isLoggedIn = true;
+        },
+        error: () => {
+          this._isLoggedIn = false;
+          this.removeAuthTokens();
+        },
+      });
+  }
+
+  private removeAuthTokens() {
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  }
 }
