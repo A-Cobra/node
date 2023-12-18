@@ -69,6 +69,7 @@ export class AuthService {
     if (!refreshToken) {
       this._isLoggedIn = false;
       this.emitNewLoggedInOutValues();
+      this.removeAuthTokens();
       return;
     }
 

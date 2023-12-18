@@ -102,10 +102,7 @@ function verifyRefreshTokenValidity(req, res) {
 
   db.query(sqlQuery, refreshToken, async (err, result) => {
     if (err) {
-      return res.status(500).json({
-        msg: 'There was an error with the database',
-        success: false,
-      });
+      return internalServerError(req, res);
     }
 
     if (result.length < 1) {
@@ -131,4 +128,30 @@ function verifyRefreshTokenValidity(req, res) {
   });
 }
 
-module.exports = { logIn, getNewAccessToken, verifyRefreshTokenValidity };
+function logOut(req, res) {
+  const { refreshToken } = req.body;
+
+  if (!refreshToken) {
+    return badRequest(
+      req,
+      res,
+      'The request has to contain a refreshToken attribute inside the body'
+    );
+  }
+
+  const sqlQuery = `DELETE from ${config.validRefreshTokenTableName} WHERE token = ?`;
+
+  db.query(sqlQuery, refreshToken, (err) => {
+    if (err) {
+      return internalServerError(req, res);
+    }
+    return res.status(204).json();
+  });
+}
+
+module.exports = {
+  logIn,
+  getNewAccessToken,
+  verifyRefreshTokenValidity,
+  logOut,
+};
