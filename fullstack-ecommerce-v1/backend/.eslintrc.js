@@ -4,29 +4,29 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: "eslint:recommended",
+  extends: 'eslint:recommended',
   overrides: [
     {
       env: {
         node: true,
       },
-      files: [".eslintrc.{js,cjs}"],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
-        sourceType: "script",
+        sourceType: 'script',
       },
     },
   ],
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: 'latest',
   },
   rules: {
     // indent: ["error", 2],
-    "linebreak-style": ["error", "windows"],
-    quotes: ["error", "double"],
-    semi: ["error", "always"],
-    "no-unused-vars": ["error"],
-    "space-infix-ops": ["error"],
-    "comma-spacing": ["error"],
-    "no-console": ["error", { allow: ["warn"] }],
+    'linebreak-style': ['error', 'windows'],
+    // quotes: ['error', 'double'],
+    semi: ['error', 'always'],
+    'no-unused-vars': ['error'],
+    'space-infix-ops': ['error'],
+    'comma-spacing': ['error'],
+    'no-console': ['error', { allow: ['warn'] }],
   },
 };
