@@ -2,9 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { LoginPayload } from 'src/app/models/login-payload.interface';
+import { SuccessfulLoginResponse } from 'src/app/models/successful-login-response.interface';
 import { environment } from 'src/environments/environment';
 
 const API_URL = environment.apiBaseUrl;
+const REFRESH_TOKEN_KEY = 'refreshToken';
+const ACCESS_TOKEN_KEY = 'accessToken';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +21,15 @@ export class AuthService {
 
   login(payload: LoginPayload) {
     this.http
-      .post(`${API_URL}/auth/log-in`, payload)
+      .post<SuccessfulLoginResponse>(`${API_URL}/auth/log-in`, payload)
       .pipe(
-        tap(data => {
-          console.log('DATA FROM PIPE');
-          console.log(data);
+        tap(loginResponse => {
+          const tokens = loginResponse.data;
           this._isLoggedIn = true;
           this.emitNewLoggedInOutValues();
-
           // Save tokens in local storage
+          localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshAccessToken);
+          localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
         })
       )
       .subscribe({
@@ -51,4 +54,6 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {}
+
+  verifyExistingRefreshTokenInLocalStorage(): void {}
 }
