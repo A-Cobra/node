@@ -26,8 +26,8 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   isLoggedOut$ = this.isLoggedOutSubject.asObservable();
 
-  login(payload: LoginPayload) {
-    this.http
+  login(payload: LoginPayload): Observable<SuccessfulLoginResponse> {
+    return this.http
       .post<SuccessfulLoginResponse>(`${API_URL}/auth/log-in`, payload)
       .pipe(
         tap(loginResponse => {
@@ -38,16 +38,7 @@ export class AuthService {
           localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshAccessToken);
           localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
         })
-      )
-      .subscribe({
-        next: data => {
-          console.log(data);
-        },
-        error: err => {
-          console.log(err);
-        },
-      });
-    // TODO: Write logic
+      );
   }
 
   logout() {

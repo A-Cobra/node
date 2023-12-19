@@ -108,7 +108,7 @@ function verifyRefreshTokenValidity(req, res) {
     if (result.length < 1) {
       return res.status(401).json({
         success: false,
-        msg: 'The refresh token his not valid, please log in again',
+        msg: 'The refresh token is not valid, please log in again',
       });
     }
 
