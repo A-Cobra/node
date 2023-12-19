@@ -126,36 +126,40 @@ export class EditProductComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          try {
-            this.productsService.patchProductById(
+          this.productsService
+            .patchProductById(
               editProductPayload.payload.id,
               editProductPayload.payload.optional
-            );
-            this.snackBar.open(
-              this.message.successfulEdit(
-                editProductPayload.payload.optional.name
-              ),
-              undefined,
-              { duration: 3500 }
-            );
-            this.goHome();
-          } catch (error) {
-            const snackBarRef = this.snackBar.open(
-              this.message.editError,
-              'Go Home',
-              {
-                duration: 3500,
-                horizontalPosition: this.horizontalPosition,
-                verticalPosition: this.verticalPosition,
-              }
-            );
-            snackBarRef
-              .onAction()
-              .pipe(take(1))
-              .subscribe({
-                next: () => this.goHome(),
-              });
-          }
+            )
+            .subscribe({
+              next: () => {
+                this.snackBar.open(
+                  this.message.successfulEdit(
+                    editProductPayload.payload.optional.name
+                  ),
+                  undefined,
+                  { duration: 3500 }
+                );
+                this.goHome();
+              },
+              error: () => {
+                const snackBarRef = this.snackBar.open(
+                  this.message.editError,
+                  'Go Home',
+                  {
+                    duration: 3500,
+                    horizontalPosition: this.horizontalPosition,
+                    verticalPosition: this.verticalPosition,
+                  }
+                );
+                snackBarRef
+                  .onAction()
+                  .pipe(take(1))
+                  .subscribe({
+                    next: () => this.goHome(),
+                  });
+              },
+            });
         },
       });
   }

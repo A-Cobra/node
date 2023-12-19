@@ -25,6 +25,7 @@ export class VisualizeProductsComponent implements OnInit {
     success: (productName: number) =>
       `Product with id ${productName} deleted successfully`,
     error: 'There was a problem deleting the product, please try again later',
+    400: 'This request can be be performed only by logged in users',
   };
 
   isFetchingProcessFinished = false;
@@ -67,17 +68,24 @@ export class VisualizeProductsComponent implements OnInit {
 
     snackBarRef.onAction().subscribe({
       next: () => {
-        try {
-          this.productsService.deleteProductById(productId);
-          this.updateProducts();
-          this.snackBar.open(this.message.success(productId), undefined, {
-            duration: 3500,
-          });
-        } catch (error) {
-          this.snackBar.open(this.message.error, undefined, {
-            duration: 3500,
-          });
-        }
+        this.productsService.deleteProductById(productId).subscribe({
+          error: err => {
+            const messageError =
+              err.status == 400
+                ? 'This request can be be performed only by logged in users'
+                : this.message.error;
+            this.snackBar.open(messageError, undefined, {
+              duration: 3500,
+            });
+          },
+          next: () => {
+            console.log('deleted product');
+            this.updateProducts();
+            this.snackBar.open(this.message.success(productId), undefined, {
+              duration: 3500,
+            });
+          },
+        });
       },
     });
   }

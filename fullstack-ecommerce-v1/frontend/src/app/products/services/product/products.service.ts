@@ -24,24 +24,20 @@ export class ProductsService {
     );
   }
 
-  patchProductById(productId: number, payload: EditCreateProductPayload): void {
-    this.http
-      .patch<ApiResponse<null>>(`${API_URL}/products/${productId}`, payload)
-      .subscribe({
-        error: () => {
-          throw new Error();
-        },
-      });
+  patchProductById(
+    productId: number,
+    payload: EditCreateProductPayload
+  ): Observable<ApiResponse<null>> {
+    return this.http.patch<ApiResponse<null>>(
+      `${API_URL}/products/${productId}`,
+      payload
+    );
   }
 
-  deleteProductById(productId: number): void {
-    this.http
-      .delete<ApiResponse<null>>(`${API_URL}/products/${productId}`)
-      .subscribe({
-        error: () => {
-          throw new Error();
-        },
-      });
+  deleteProductById(productId: number): Observable<ApiResponse<null>> {
+    return this.http.delete<ApiResponse<null>>(
+      `${API_URL}/products/${productId}`
+    );
   }
 
   postProduct(
