@@ -23,6 +23,15 @@ li {
       background-color: $bright-blue;
       transition: ease-in-out 0.3s;
     }
+
+    &.danger {
+      color: white;
+      background-color: $red;
+      &:hover {
+        background-color: $burgundy;
+        transition: ease-in-out 0.3s;
+      }
+    }
   }
 }
 nav {

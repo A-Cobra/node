@@ -34,16 +34,23 @@ export class AuthService {
           const tokens = loginResponse.data;
           this._isLoggedIn = true;
           this.emitNewLoggedInOutValues();
-          // Save tokens in local storage
           localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshAccessToken);
           localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
         })
       );
   }
 
-  logout() {
-    this._isLoggedIn = false;
-    this.emitNewLoggedInOutValues();
+  logout(): Observable<null> {
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+    return this.http
+      .delete<null>(`${API_URL}/auth/log-out`, { body: { refreshToken } })
+      .pipe(
+        tap(() => {
+          this._isLoggedIn = false;
+          this.emitNewLoggedInOutValues();
+          this.removeAuthTokens();
+        })
+      );
   }
 
   private emitNewLoggedInOutValues() {
