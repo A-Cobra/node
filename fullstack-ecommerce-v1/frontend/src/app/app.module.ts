@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { tokenInterceptorFactory } from './utils/token-interceptor.factory';
 import { AuthService } from './auth/services/auth.service';
+import { UnauthorizedErrorInterceptor } from './interceptors/unauthorized-error.interceptor';
 
 @NgModule({
   declarations: [AppComponent, NavigationBarComponent],
@@ -29,11 +30,11 @@ import { AuthService } from './auth/services/auth.service';
       deps: [AuthService],
       multi: true,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedErrorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

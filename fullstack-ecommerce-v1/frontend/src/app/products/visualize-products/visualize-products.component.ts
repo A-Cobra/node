@@ -71,7 +71,7 @@ export class VisualizeProductsComponent implements OnInit {
         this.productsService.deleteProductById(productId).subscribe({
           error: err => {
             const messageError =
-              err.status == 400
+              err.status === 400 || err.status === 401
                 ? 'This request can be be performed only by logged in users'
                 : this.message.error;
             this.snackBar.open(messageError, undefined, {

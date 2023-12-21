@@ -15,6 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
+import { UnauthorizedErrorInterceptor } from '../interceptors/unauthorized-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,11 @@ import { TokenInterceptor } from '../interceptors/token.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedErrorInterceptor,
       multi: true,
     },
   ],

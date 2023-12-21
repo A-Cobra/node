@@ -23,7 +23,6 @@ export class UnauthorizedErrorInterceptor implements HttpInterceptor {
           const accessToken = error.error.accessToken;
           if (accessToken) {
             this.authService.accessToken = accessToken;
-
             const clonedRequest = req.clone({
               setHeaders: {
                 Authorization: `Bearer ${accessToken}`,
@@ -31,7 +30,7 @@ export class UnauthorizedErrorInterceptor implements HttpInterceptor {
             });
             return next.handle(clonedRequest);
           } else {
-            this.authService.logout();
+            this.authService.logout().subscribe();
           }
         }
         return throwError(() => error);
