@@ -1,18 +1,13 @@
 const dbConnection =
-  require("../../database/get-database-connection.js").getInstance();
-const config = require("../../config/config.js");
+  require('../../database/get-database-connection.js').getInstance();
+const config = require('../../config/config.js');
 
 function addRefreshToken(payload) {
-  // payload = [refreshToken, email]
   const sqlQuery = `INSERT INTO ${config.validRefreshTokenTableName} (token, email) VALUES (?, ?)`;
-  dbConnection.query(sqlQuery, payload, (err, res) => {
+  dbConnection.query(sqlQuery, payload, (err) => {
     if (err) {
-      console.log("err deleting row");
-      console.log(err);
-      return;
+      console.log('There was an error inserting the token to the database');
     }
-    console.log("res");
-    console.log(res);
   });
 }
 

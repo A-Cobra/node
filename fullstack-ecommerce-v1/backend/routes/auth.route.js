@@ -4,7 +4,6 @@ const {
   verifyRefreshTokenValidity,
   logOut,
 } = require('../controllers/auth.controller');
-
 const Router = require('express').Router;
 
 const router = Router();

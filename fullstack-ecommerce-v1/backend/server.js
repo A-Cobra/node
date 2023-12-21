@@ -1,8 +1,8 @@
 const express = require('express');
 const config = require('./config/config.js');
 const productsRouter = require('./routes/products.route.js');
-const authRouter = require('./routes/auth.route.js');
 const cors = require('cors');
+const CORS_CONFIG = require('./utils/cors-config.js');
 let dbConnection;
 
 try {
@@ -14,13 +14,7 @@ try {
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: 'http://localhost:4200',
-    routes: ['api/products/number-of-products'],
-    // methods: ["GET", "PATCH"],
-  })
-);
+app.use(cors(CORS_CONFIG));
 
 const routes = {
   products: '/api/products',

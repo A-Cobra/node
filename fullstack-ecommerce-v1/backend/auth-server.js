@@ -1,12 +1,12 @@
-const express = require("express");
-const config = require("./config/config.js");
-const authRouter = require("./routes/auth.route.js");
-const cors = require("cors");
-const CORS_CONFIG = require("./utils/cors-config.js");
+const express = require('express');
+const config = require('./config/config.js');
+const authRouter = require('./routes/auth.route.js');
+const cors = require('cors');
+const CORS_CONFIG = require('./utils/cors-config.js');
 let dbConnection;
 
 try {
-  dbConnection = require("./database/get-database-connection.js").getInstance();
+  dbConnection = require('./database/get-database-connection.js').getInstance();
 } catch (error) {
   console.log(error);
   process.exit(0);
@@ -17,8 +17,7 @@ app.use(express.json());
 app.use(cors(CORS_CONFIG));
 
 const routes = {
-  products: "/api/products",
-  auth: "/api/auth",
+  auth: '/api/auth',
 };
 
 app.listen(config.authServerApiPort, (err) => {

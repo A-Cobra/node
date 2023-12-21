@@ -39,7 +39,6 @@ async function logIn(req, res) {
       foundUser.password
     );
 
-    // Removing the existing refresh Token from the database
     try {
       removeExistingRefreshTokenByEmail(foundUser.email);
     } catch (error) {

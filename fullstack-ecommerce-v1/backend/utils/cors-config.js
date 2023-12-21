@@ -1,7 +1,5 @@
 const CORS_CONFIG = {
-  origin: "http://localhost:4200",
-  routes: ["api/products/number-of-products"],
-  // methods: ["GET", "PATCH"],
+  origin: ['http://localhost:4200', 'https://a-cobra-eccommerce.netlify.app/'],
 };
 
 module.exports = CORS_CONFIG;

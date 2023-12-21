@@ -9,7 +9,7 @@
     "auth-server-dev": "nodemon auth-server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Aizen",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

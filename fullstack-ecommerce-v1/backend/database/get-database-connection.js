@@ -1,5 +1,5 @@
-const config = require("../config/config.js");
-const mysql = require("mysql");
+const config = require('../config/config.js');
+const mysql = require('mysql');
 
 const databaseConnection = (function () {
   let instance;
@@ -13,7 +13,7 @@ const databaseConnection = (function () {
 
     db.connect((err) => {
       if (err) {
-        throw new Error("Database connection unsuccessful");
+        throw new Error('Database connection unsuccessful');
       }
     });
     return db;
@@ -21,11 +21,7 @@ const databaseConnection = (function () {
   return {
     getInstance() {
       if (!instance) {
-        try {
-          instance = initializeConnection();
-        } catch (error) {
-          throw error;
-        }
+        instance = initializeConnection();
       }
       return instance;
     },
