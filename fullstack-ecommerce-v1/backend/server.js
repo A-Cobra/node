@@ -24,7 +24,6 @@ app.use(
 
 const routes = {
   products: '/api/products',
-  auth: '/api/auth',
 };
 
 app.listen(config.apiPort, (err) => {
@@ -37,5 +36,4 @@ app.listen(config.apiPort, (err) => {
 
 function useRoutes() {
   app.use(routes.products, productsRouter);
-  app.use(routes.auth, authRouter);
 }

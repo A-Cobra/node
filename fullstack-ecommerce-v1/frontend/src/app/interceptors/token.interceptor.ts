@@ -14,8 +14,30 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    throw new Error('Method not implemented.');
-  }
+    console.log('Intercepting request');
+    // const accessToken = this.authService.accessToken;
+    const accessToken = localStorage.getItem('accessToken') ?? '';
+    // const refreshToken = this.authService.refreshToken;
+    const refreshToken = localStorage.getItem('refreshToken') ?? '';
+    console.log('accessToken');
+    console.log(accessToken);
+    console.log('refreshToken');
+    console.log(refreshToken);
+    if (accessToken) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    }
+    if (refreshToken) {
+      let body = req.body || {};
+      body = { ...body, refreshToken };
 
-  constructor(private authService: AuthService) {}
+      req = req.clone({
+        body: body,
+      });
+    }
+    return next.handle(req);
+  }
 }

@@ -12,7 +12,7 @@ import { LoginPayload } from 'src/app/models/login-payload.interface';
 import { SuccessfulLoginResponse } from 'src/app/models/successful-login-response.interface';
 import { environment } from 'src/environments/environment';
 
-const API_URL = environment.apiBaseUrl;
+const API_URL = environment.apiAuthUrl;
 const REFRESH_TOKEN_KEY = 'refreshToken';
 const ACCESS_TOKEN_KEY = 'accessToken';
 
@@ -25,6 +25,8 @@ export class AuthService {
   private isLoggedOutSubject = new BehaviorSubject<boolean>(!this._isLoggedIn);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   isLoggedOut$ = this.isLoggedOutSubject.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   login(payload: LoginPayload): Observable<SuccessfulLoginResponse> {
     return this.http
@@ -58,10 +60,6 @@ export class AuthService {
     this.isLoggedOutSubject.next(!this._isLoggedIn);
   }
 
-  constructor(private http: HttpClient) {
-    this.verifyExistingRefreshTokenInLocalStorage();
-  }
-
   verifyExistingRefreshTokenInLocalStorage(): void {
     const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
     if (!refreshToken) {
@@ -70,9 +68,8 @@ export class AuthService {
       this.removeAuthTokens();
       return;
     }
-
     this.http
-      .post(`${API_URL}/auth/verify-refresh-token`, { refreshToken })
+      .post(`${API_URL}/auth/verify-refresh-token`, null)
       .pipe(
         finalize(() => {
           this.emitNewLoggedInOutValues();
@@ -82,7 +79,8 @@ export class AuthService {
         next: () => {
           this._isLoggedIn = true;
         },
-        error: () => {
+        error: err => {
+          console.log(err);
           this._isLoggedIn = false;
           this.removeAuthTokens();
         },
@@ -92,5 +90,17 @@ export class AuthService {
   private removeAuthTokens() {
     localStorage.removeItem(REFRESH_TOKEN_KEY);
     localStorage.removeItem(ACCESS_TOKEN_KEY);
+  }
+
+  get accessToken() {
+    return localStorage.getItem(ACCESS_TOKEN_KEY) ?? '';
+  }
+
+  get refreshToken() {
+    return localStorage.getItem(REFRESH_TOKEN_KEY) ?? '';
+  }
+
+  set accessToken(accessToken) {
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
   }
 }
