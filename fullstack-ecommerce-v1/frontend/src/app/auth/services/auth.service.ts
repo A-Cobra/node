@@ -80,7 +80,6 @@ export class AuthService {
           this._isLoggedIn = true;
         },
         error: err => {
-          console.log(err);
           this._isLoggedIn = false;
           this.removeAuthTokens();
         },

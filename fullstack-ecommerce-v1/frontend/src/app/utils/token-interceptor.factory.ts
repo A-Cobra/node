@@ -4,5 +4,5 @@ import { TokenInterceptor } from '../interceptors/token.interceptor';
 export function tokenInterceptorFactory(
   authService: AuthService
 ): TokenInterceptor {
-  return new TokenInterceptor();
+  return new TokenInterceptor(authService);
 }

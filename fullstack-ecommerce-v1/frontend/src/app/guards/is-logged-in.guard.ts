@@ -28,8 +28,6 @@ export class IsLoggedInGuard implements CanLoad {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    console.log('ON GUARD');
-    // return true;
     this.authService.isLoggedOut$.subscribe({
       next: isLoggedOut => {
         if (!isLoggedOut) {

@@ -79,7 +79,6 @@ export class VisualizeProductsComponent implements OnInit {
             });
           },
           next: () => {
-            console.log('deleted product');
             this.updateProducts();
             this.snackBar.open(this.message.success(productId), undefined, {
               duration: 3500,

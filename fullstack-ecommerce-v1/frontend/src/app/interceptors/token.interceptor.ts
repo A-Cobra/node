@@ -10,19 +10,13 @@ import { AuthService } from '../auth/services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('Intercepting request');
-    // const accessToken = this.authService.accessToken;
-    const accessToken = localStorage.getItem('accessToken') ?? '';
-    // const refreshToken = this.authService.refreshToken;
-    const refreshToken = localStorage.getItem('refreshToken') ?? '';
-    console.log('accessToken');
-    console.log(accessToken);
-    console.log('refreshToken');
-    console.log(refreshToken);
+    const accessToken = this.authService.accessToken;
+    const refreshToken = this.authService.refreshToken;
     if (accessToken) {
       req = req.clone({
         setHeaders: {

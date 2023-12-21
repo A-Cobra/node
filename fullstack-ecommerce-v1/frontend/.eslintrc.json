@@ -39,7 +39,7 @@
         "@typescript-eslint/member-ordering": 0,
         "@typescript-eslint/naming-convention": 0,
         "no-unused-vars": "error",
-        "no-console": "warn"
+        "no-console": "error"
       }
     },
     {
