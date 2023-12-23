@@ -44,6 +44,9 @@ export class AuthService {
 
   logout(): Observable<null> {
     const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+    if (!refreshToken) {
+      return of(null);
+    }
     return this.http
       .delete<null>(`${API_URL}/auth/log-out`, { body: { refreshToken } })
       .pipe(

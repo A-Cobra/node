@@ -11,18 +11,26 @@
     *ngIf="productsData$ | async as productsData; else productsRetrievalError">
     <div class="grid-container">
       <ng-container *ngIf="productsData?.data as products">
-        <div class="card" *ngFor="let product of products">
-          <product-card
-            [product]="product"
-            (event)="handleProductCardEvent($event)"></product-card>
-        </div>
+        <ng-container *ngIf="products.length > 0; else noProducts">
+          <div class="card" *ngFor="let product of products">
+            <product-card
+              [product]="product"
+              (event)="handleProductCardEvent($event)"></product-card>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
     <ng-template #noProducts>
-      <h1 class="error">There are no products yet</h1>
-      <button [routerLink]="['create']" routerLinkActive="router-link-active">
-        Add one
-      </button>
+      <div class="error-container">
+        <h1 class="error">There are no products yet</h1>
+        <div class="button-container">
+          <button
+            [routerLink]="['create']"
+            routerLinkActive="router-link-active">
+            Add one
+          </button>
+        </div>
+      </div>
     </ng-template>
   </div>
   <ng-template #productsRetrievalError>
