@@ -21,7 +21,7 @@
       </ng-container>
     </div>
     <ng-template #noProducts>
-      <div class="error-container">
+      <div class="error-container" *ngIf="isFetchingProcessFinished">
         <h1 class="error">There are no products yet</h1>
         <div class="button-container">
           <button
@@ -34,10 +34,12 @@
     </ng-template>
   </div>
   <ng-template #productsRetrievalError>
-    <h1 class="error">Error</h1>
-    <p>
-      There was an error retrieving the products, please refresh the window or
-      try again later
-    </p>
+    <div *ngIf="isFetchingProcessFinished">
+      <h1 class="error">Error</h1>
+      <p>
+        There was an error retrieving the products, please refresh the window or
+        try again later
+      </p>
+    </div>
   </ng-template>
 </main>
