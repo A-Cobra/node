@@ -1,8 +1,8 @@
-const config = require("../config/config.js");
-const db = require("../database/get-database-connection.js").getInstance();
-const internalServerError = require("../helpers/internal-server-error.js");
-const badRequest = require("../helpers/bad-request.js");
-const findNumberOfProductsInDb = require("../helpers/find-number-of-products-in-db.js");
+const config = require('../config/config.js');
+const db = require('../database/get-database-connection.js').getInstance();
+const internalServerError = require('../helpers/internal-server-error.js');
+const badRequest = require('../helpers/bad-request.js');
+const findNumberOfProductsInDb = require('../helpers/find-number-of-products-in-db.js');
 
 function getAllProducts(req, res) {
   const sqlQuery = `SELECT * FROM ${config.productTableName}`;
@@ -10,7 +10,7 @@ function getAllProducts(req, res) {
     return err
       ? internalServerError(err)
       : res.status(200).json({
-          msg: "Products retrieved correctly",
+          msg: 'Products retrieved correctly',
           success: true,
           data: result,
         });
@@ -36,13 +36,13 @@ function getProductById(req, res) {
 
     if (records.length === 0) {
       return res.status(404).json({
-        msg: "User not found",
+        msg: 'User not found',
         success: false,
       });
     }
 
     return res.status(200).json({
-      msg: "Product retrieved correctly",
+      msg: 'Product retrieved correctly',
       success: true,
       data: records[0],
     });
@@ -55,7 +55,7 @@ async function postProduct(req, res) {
     return badRequest(
       req,
       res,
-      "The name, description, and price are required"
+      'The name, description, and price are required'
     );
   }
 
@@ -73,9 +73,9 @@ async function postProduct(req, res) {
   const payload = { name, description, price };
   db.query(sqlQuery, payload, (err) => {
     return err
-      ? res.status(500).json({ msg: "Product creation failed", success: false })
+      ? res.status(500).json({ msg: 'Product creation failed', success: false })
       : res.status(201).json({
-          msg: "Product created correctly",
+          msg: 'Product created correctly',
           success: true,
         });
   });
@@ -84,21 +84,24 @@ async function postProduct(req, res) {
 function patchProductById(req, res) {
   const id = req.params.id;
   if (!id) {
-    return badRequest(req, res, "The id is required");
+    return badRequest(req, res, 'The id is required');
   }
 
   const updatedFields = req.body;
+
+  delete updatedFields.refreshToken;
+
   const sqlQuery = `UPDATE ${config.productTableName} SET ? WHERE id = ?`;
 
   const payload = [updatedFields, id];
   db.query(sqlQuery, payload, (err) => {
     return err
       ? res.status(500).json({
-          msg: "Product update failed, try again later",
+          msg: 'Product update failed, try again later',
           success: false,
         })
       : res.status(201).json({
-          msg: "Product updated correctly",
+          msg: 'Product updated correctly',
           success: true,
         });
   });
@@ -108,7 +111,7 @@ function deleteProductById(req, res) {
   const id = req.params.id;
 
   if (!id) {
-    return badRequest(req, res, "The id is required");
+    return badRequest(req, res, 'The id is required');
   }
 
   const sqlQuery = `DELETE FROM ${config.productTableName} WHERE id = ?`;
@@ -116,11 +119,11 @@ function deleteProductById(req, res) {
   db.query(sqlQuery, id, (err) => {
     return err
       ? res.status(500).json({
-          msg: "Product removal failed, try again later",
+          msg: 'Product removal failed, try again later',
           success: false,
         })
       : res.status(201).json({
-          msg: "Product removed correctly",
+          msg: 'Product removed correctly',
           success: true,
         });
   });
@@ -130,7 +133,7 @@ async function getNumberOfProducts(req, res) {
   try {
     const numberOfRecords = await findNumberOfProductsInDb();
     return res.status(201).json({
-      msg: "Count retrieved correctly",
+      msg: 'Count retrieved correctly',
       success: true,
       data: numberOfRecords,
     });
@@ -138,7 +141,7 @@ async function getNumberOfProducts(req, res) {
     return internalServerError(
       req,
       res,
-      "The database could not fetch the number of records"
+      'The database could not fetch the number of records'
     );
   }
 }
