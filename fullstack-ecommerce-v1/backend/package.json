@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "auth-server": "node auth-server.js",
-    "all-scripts": "npm run start && npm start auth-server",
+    "all-scripts": "npm run start & npm start auth-server",
     "auth-server-dev": "nodemon auth-server.js"
   },
   "keywords": [],
