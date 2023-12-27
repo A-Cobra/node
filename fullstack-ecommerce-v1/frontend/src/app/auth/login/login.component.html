@@ -1,0 +1,30 @@
+<main>
+  <h1 class="title">Login Form</h1>
+  <div class="box">
+    <form [formGroup]="loginForm">
+      <div class="form-control">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="text"
+          placeholder="Email"
+          formControlName="email" />
+        <div
+          class="error"
+          *ngIf="
+            loginForm.controls['email'].errors &&
+            loginForm.controls['email'].dirty
+          ">
+          <p>Please provide a valid email (prefix&#64;suffix.domain)</p>
+        </div>
+      </div>
+      <div class="form-control">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
+      <div class="button-container">
+        <button (click)="handleLogin()" class="button">Log In</button>
+      </div>
+    </form>
+  </div>
+</main>

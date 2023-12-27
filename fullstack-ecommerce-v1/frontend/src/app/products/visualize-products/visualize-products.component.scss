@@ -1,0 +1,60 @@
+@import '../../../colors';
+$row-gap: 20px;
+main {
+  .title {
+    color: $navy-blue;
+  }
+  .error {
+    color: red;
+  }
+  display: grid;
+  row-gap: 20px;
+  padding: 30px 100px;
+  .grid-container {
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    .card {
+      padding: 20px;
+      border: 2px solid $light-gray;
+      &:hover {
+        border: 2px solid $navy-blue;
+        box-shadow: 3px 6px 10px $main-color-shadow;
+        transition: ease-in-out 0.5s;
+      }
+    }
+  }
+  .error-container {
+    display: grid;
+    row-gap: $row-gap;
+    button {
+      border: none;
+      width: 150px;
+      text-align: center;
+      padding: 8px 14px;
+      text-decoration: none;
+      font-size: 18px;
+      color: $light-gray;
+      background-color: $pine-green;
+      border-radius: 5px;
+      cursor: grab;
+      &.active {
+        color: $light-purple;
+        background-color: $navy-blue;
+        box-shadow: 3px 6px 6px $main-color-shadow;
+      }
+      &:hover {
+        color: $pine-green;
+        background-color: $light-sky-blue;
+        box-shadow: 3px 6px 6px $main-color-shadow;
+        transition: ease-in-out 0.5s;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  main {
+    padding: 30px 30px;
+  }
+}
