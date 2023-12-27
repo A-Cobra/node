@@ -207,7 +207,7 @@ To generate permissions and user accounts for product deletion, please follow th
 
 5. Locate the file named `generate-password.js` within the utils directory.
 
-6. In the generate-password.js file, locate the variable `'your_password_here'` and replace it with the desired password for your user.
+6. In the generate-password.js file, locate the variable `defaultPassword` and replace it with the desired password for your user.
 
 7. Save the changes to the generate-password.js file.
 
