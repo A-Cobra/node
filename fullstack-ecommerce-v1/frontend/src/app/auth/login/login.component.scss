@@ -1,0 +1,157 @@
+@import '../../../colors';
+
+$row-gap: 20px;
+
+$linear-gradient: linear-gradient(
+  90deg,
+  rgba(2, 0, 36, 1) 0%,
+  rgba(92, 121, 9, 1) 35%,
+  rgba(0, 212, 255, 1) 100%
+);
+
+$box-height: 350px;
+
+main {
+  display: grid;
+  gap: 15px;
+  padding: 20px 110px;
+  justify-items: center;
+  h1 {
+    color: $navy-blue;
+  }
+  .error {
+    color: red;
+  }
+}
+@media screen and (max-width: 720px) {
+  main {
+    padding: 20px 30px;
+  }
+}
+
+h1 {
+  color: $navy-blue;
+}
+
+.box {
+  position: relative;
+  width: 400px;
+  height: $box-height;
+  background-color: $light-gray;
+  border-radius: 8px;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 400px;
+    height: $box-height;
+    background-color: linear-gradient(45, $twilight, $twilight-shadow);
+    background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(92, 121, 9, 1) 35%,
+      rgba(0, 212, 255, 1) 100%
+    );
+    transform-origin: bottom right;
+    animation: rotate 4s linear infinite;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: -50%;
+    left: -50%;
+    width: 400px;
+    height: $box-height;
+    background-color: linear-gradient(45, $twilight, $twilight-shadow);
+    background: $linear-gradient;
+    transform-origin: bottom right;
+    animation: rotate 4s linear infinite;
+    animation-delay: -2s;
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+form {
+  z-index: 3;
+  position: absolute;
+  inset: 4px;
+  background-color: white;
+  padding: 30px;
+  display: grid;
+  row-gap: $row-gap;
+  border-radius: 4px;
+
+  label,
+  p {
+    font-size: 18px;
+  }
+
+  label {
+    color: $pine-green;
+  }
+
+  input {
+    border: none;
+    outline: none;
+  }
+
+  .form-control {
+    display: grid;
+    position: relative;
+    &::before {
+      content: '';
+      width: 100%;
+      height: 3px;
+      position: absolute;
+      left: 8px;
+      bottom: -8px;
+      background-color: $light-sky-blue;
+    }
+    &::after {
+      content: '';
+      width: 3px;
+      height: 50%;
+      position: absolute;
+      right: -8px;
+      bottom: -8px;
+      background-color: $light-sky-blue;
+    }
+  }
+  button {
+    border: none;
+    width: 150px;
+    text-align: center;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-size: 18px;
+    color: $light-gray;
+    background-color: $pine-green;
+    border-radius: 5px;
+    cursor: grab;
+    &.active {
+      color: $light-purple;
+      background-color: $navy-blue;
+      box-shadow: 3px 6px 6px $main-color-shadow;
+    }
+    &:hover {
+      color: $pine-green;
+      background-color: $light-sky-blue;
+      box-shadow: 3px 6px 6px $main-color-shadow;
+      transition: ease-in-out 0.5s;
+    }
+  }
+}
+
+.error p {
+  color: red;
+}

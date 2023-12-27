@@ -1,0 +1,49 @@
+@import '../../colors';
+
+li {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  a {
+    cursor: pointer;
+    text-align: center;
+    padding: 8px 14px;
+    font-size: 18px;
+    color: $secondary-blue;
+    border-radius: 5px;
+    &.active {
+      color: white;
+      background-color: $navy-blue;
+      box-shadow: 3px 6px 6px $twilight-shadow;
+    }
+    &:hover {
+      color: $light-gray;
+      background-color: $bright-blue;
+      transition: ease-in-out 0.3s;
+    }
+
+    &.danger {
+      color: white;
+      background-color: $red;
+      &:hover {
+        background-color: $burgundy;
+        transition: ease-in-out 0.3s;
+      }
+    }
+  }
+}
+nav {
+  padding: 30px 110px;
+  background-color: $light-sky-blue;
+  &:hover {
+    box-shadow: 3px 6px 6px $main-color-shadow;
+    transition: ease-in-out 0.3s;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  nav {
+    padding: 30px;
+  }
+}
