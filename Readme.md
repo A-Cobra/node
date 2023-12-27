@@ -9,6 +9,10 @@
 
 ## Projects
 
+### [Fullstack e-commerce management](./fullstack-ecommerce-v1)
+
+This project is a fullstack eCommerce application designed for managers. It provides a user-friendly interface for managers to create, update, delete, and visualize products. The frontend is built using Angular, offering an intuitive and responsive user interface. The backend is powered by Node.js and utilizes a MySQL database to store product and session information. Managers can easily add new products, update existing ones, and remove products from the inventory. The application ensures data consistency and provides a seamless experience for managers to manage the product catalog. This fullstack app serves as a powerful tool for managers to efficiently handle product management tasks.
+
 ### [Memoization](./memoization)
 
 This project implements the Fibonacci sequence using memoization technique. It includes both recursive and iterative versions of the Fibonacci algorithm. The recursive version recursively calculates the Fibonacci numbers, while the iterative version uses a loop to compute them. The purpose of this project is to compare the performance and efficiency of the two approaches.

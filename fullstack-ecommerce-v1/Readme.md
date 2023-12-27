@@ -82,9 +82,24 @@ After sufficing the requirements for the app, follow the steps in order to run t
 
 7. Create a database with the following three tables:
 
-   - user
-   - product
-   - active_refresh_token
+   - **user**:
+
+     - Columns:
+       - `email` (VARCHAR)
+       - `password` (VARCHAR)
+
+   - **product**:
+
+     - Columns:
+       - `id` (INT, auto_increment)
+       - `name` (VARCHAR)
+       - `description` (VARCHAR)
+       - `price` (FLOAT)
+
+   - **active_refresh_token**:
+     - Columns:
+       - `email` (VARCHAR)
+       - `token` (VARCHAR)
 
 8. Create a .env file in the current directory and fill in the following information:
 
@@ -163,7 +178,12 @@ These instructions should help you run the application either through the deploy
 - **Error Handling**: Implementation of error handling mechanisms for graceful error management.
 - **Notifications**: Feature for displaying notifications to improve the user experience.
 
-## Considerations:
+## Notes:
+
+The app uses credentials to limit certain actions. If you wish to test these functionalities, you can use the following credentials when logging in:
+
+- Email: `normal-user@mydomain.com`
+- Password: `theUltimatePassword299792458mps?`
 
 To generate permissions and user accounts for product deletion, please follow the steps below:
 
@@ -173,19 +193,31 @@ To generate permissions and user accounts for product deletion, please follow th
    fullstack-ecommerce-v1/backend
    ```
 
-2. Locate the file named `generate-password.js` within the utils directory.
+2. Open a command line interface
 
-3. In the generate-password.js file, locate the variable `'your_password_here'` and replace it with the desired password for your user.
+3. If you want to generate a password programmatically, skip to step 5. Otherwise, generate the password by running the following command:
 
-4. Save the changes to the generate-password.js file.
+   ```
+   node .\utils\generate-password.js YOUR_PASSWORD
+   ```
 
-5. Open a command line interface and navigate to the backend directory:
+   Replace YOUR_PASSWORD with your desired password. The generated (hashed) password will be displayed in the console output.
+
+4. Skip to step 10 if you generated the password programmatically.
+
+5. Locate the file named `generate-password.js` within the utils directory.
+
+6. In the generate-password.js file, locate the variable `'your_password_here'` and replace it with the desired password for your user.
+
+7. Save the changes to the generate-password.js file.
+
+8. Open a command line interface and navigate to the backend directory:
 
    ```
    cd fullstack-ecommerce-v1/backend
    ```
 
-6. Generate the password by running the following command:
+9. Generate the password by running the following command:
 
    ```
    node .\utils\generate-password.js
@@ -193,11 +225,11 @@ To generate permissions and user accounts for product deletion, please follow th
 
    The generated password will be displayed in the console output.
 
-7. Copy the hashed password form the output
+10. Copy the hashed password form the output
 
-8. Access your database and locate the user table.
+11. Access your database and locate the user table.
 
-9. Insert a new row into the user table with the appropriate email and the hashed password obtained from the previous step.
+12. Insert a new row into the user table with the appropriate email and the hashed password obtained from the previous step.
 
 ## License
 
