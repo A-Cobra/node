@@ -1,0 +1,45 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="pacman">
+  <p style="font-size: 30px; color: white">Fetching...</p>
+</ngx-spinner>
+<main *ngIf="isFetchingProcessFinished">
+  <h1 class="title">View Products</h1>
+  <div
+    *ngIf="productsData$ | async as productsData; else productsRetrievalError">
+    <div class="grid-container">
+      <ng-container *ngIf="productsData?.data as products">
+        <ng-container *ngIf="products.length > 0; else noProducts">
+          <div class="card" *ngFor="let product of products">
+            <product-card
+              [product]="product"
+              (event)="handleProductCardEvent($event)"></product-card>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <ng-template #noProducts>
+      <div class="error-container" *ngIf="isFetchingProcessFinished">
+        <h1 class="error">There are no products yet</h1>
+        <div class="button-container">
+          <button
+            [routerLink]="['create']"
+            routerLinkActive="router-link-active">
+            Add one
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <ng-template #productsRetrievalError>
+    <div>
+      <h1 class="error">Error</h1>
+      <p>
+        There was an error retrieving the products, please refresh the window or
+        try again later
+      </p>
+    </div>
+  </ng-template>
+</main>
